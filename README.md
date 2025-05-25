@@ -37,7 +37,7 @@ El proyecto se divide en tres capítulos principales, cada uno con su propio con
 
 ## Uso
 
-(Aquí puedes añadir instrucciones sobre cómo utilizar la librería, cómo instalarla, etc.)
+TODO
 
 ## Contribuyentes
 

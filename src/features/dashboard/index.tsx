@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useState } from 'react'
+import init, { add } from 'numanalytic-solver-lib'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -17,6 +20,14 @@ import { Overview } from './components/overview'
 import { RecentSales } from './components/recent-sales'
 
 export default function Dashboard() {
+  const [result, setResult] = useState(0)
+
+  useEffect(() => {
+    init().then(() => {
+      setResult(Number(add(BigInt(1), BigInt(2))))
+    })
+  }, [])
+
   return (
     <>
       {/* ===== Top Heading ===== */}
@@ -33,6 +44,11 @@ export default function Dashboard() {
       <Main>
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <h1 className='text-2xl font-bold tracking-tight'>Dashboard</h1>
+          <p>Result: {result}</p>
+          <Button onClick={() => setResult(Number(add(BigInt(10), BigInt(3))))}>
+            Aquí las tengo
+          </Button>
+
           <div className='flex items-center space-x-2'>
             <Button>Download</Button>
           </div>

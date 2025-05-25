@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:wasm": "cd numanalytic-solver-lib && wasm-pack build --target web --out-dir pkg",
     "lint": "eslint .",
     "preview": "vite preview",
     "format:check": "prettier --check .",
@@ -45,6 +46,7 @@
     "input-otp": "^1.4.2",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.488.0",
+    "numanalytic-solver-lib": "link:numanalytic-solver-lib/pkg",
     "react": "^19.1.0",
     "react-day-picker": "9.6.6",
     "react-dom": "^19.1.0",

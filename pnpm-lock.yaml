@@ -104,6 +104,9 @@ importers:
       lucide-react:
         specifier: ^0.488.0
         version: 0.488.0(react@19.1.0)
+      numanalytic-solver-lib:
+        specifier: link:numanalytic-solver-lib/pkg
+        version: link:numanalytic-solver-lib/pkg
       react:
         specifier: ^19.1.0
         version: 19.1.0
