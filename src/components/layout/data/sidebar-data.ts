@@ -18,6 +18,7 @@ import {
   IconUserCog,
   IconUserOff,
   IconUsers,
+  IconVariable,
 } from '@tabler/icons-react'
 import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
 import { ClerkLogo } from '@/assets/clerk-logo'
@@ -47,6 +48,16 @@ export const sidebarData: SidebarData = {
     },
   ],
   navGroups: [
+    {
+      title: 'Métodos de Raíces',
+      items: [
+        {
+          title: 'Método de Bisección',
+          url: '/methods/bisection',
+          icon: IconVariable,
+        },
+      ],
+    },
     {
       title: 'General',
       items: [

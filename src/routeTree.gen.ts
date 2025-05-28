@@ -27,6 +27,7 @@ import { Route as authForgotPasswordImport } from './routes/(auth)/forgot-passwo
 import { Route as ClerkAuthenticatedRouteImport } from './routes/clerk/_authenticated/route'
 import { Route as ClerkauthRouteImport } from './routes/clerk/(auth)/route'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings/route'
+import { Route as AuthenticatedMethodsRouteImport } from './routes/_authenticated/methods/route'
 import { Route as AuthenticatedUsersIndexImport } from './routes/_authenticated/users/index'
 import { Route as AuthenticatedTasksIndexImport } from './routes/_authenticated/tasks/index'
 import { Route as AuthenticatedSettingsIndexImport } from './routes/_authenticated/settings/index'
@@ -40,6 +41,7 @@ import { Route as AuthenticatedSettingsNotificationsImport } from './routes/_aut
 import { Route as AuthenticatedSettingsDisplayImport } from './routes/_authenticated/settings/display'
 import { Route as AuthenticatedSettingsAppearanceImport } from './routes/_authenticated/settings/appearance'
 import { Route as AuthenticatedSettingsAccountImport } from './routes/_authenticated/settings/account'
+import { Route as AuthenticatedMethodsBisectionImport } from './routes/_authenticated/methods/bisection'
 
 // Create/Update Routes
 
@@ -138,6 +140,12 @@ const AuthenticatedSettingsRouteRoute = AuthenticatedSettingsRouteImport.update(
   } as any,
 )
 
+const AuthenticatedMethodsRouteRoute = AuthenticatedMethodsRouteImport.update({
+  id: '/methods',
+  path: '/methods',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+
 const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexImport.update({
   id: '/users/',
   path: '/users/',
@@ -224,6 +232,13 @@ const AuthenticatedSettingsAccountRoute =
     getParentRoute: () => AuthenticatedSettingsRouteRoute,
   } as any)
 
+const AuthenticatedMethodsBisectionRoute =
+  AuthenticatedMethodsBisectionImport.update({
+    id: '/bisection',
+    path: '/bisection',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -241,6 +256,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/clerk'
       preLoaderRoute: typeof ClerkRouteImport
       parentRoute: typeof rootRoute
+    }
+    '/_authenticated/methods': {
+      id: '/_authenticated/methods'
+      path: '/methods'
+      fullPath: '/methods'
+      preLoaderRoute: typeof AuthenticatedMethodsRouteImport
+      parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/settings': {
       id: '/_authenticated/settings'
@@ -340,6 +362,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/_authenticated/methods/bisection': {
+      id: '/_authenticated/methods/bisection'
+      path: '/bisection'
+      fullPath: '/methods/bisection'
+      preLoaderRoute: typeof AuthenticatedMethodsBisectionImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
     '/_authenticated/settings/account': {
       id: '/_authenticated/settings/account'
       path: '/account'
@@ -436,6 +465,20 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuthenticatedMethodsRouteRouteChildren {
+  AuthenticatedMethodsBisectionRoute: typeof AuthenticatedMethodsBisectionRoute
+}
+
+const AuthenticatedMethodsRouteRouteChildren: AuthenticatedMethodsRouteRouteChildren =
+  {
+    AuthenticatedMethodsBisectionRoute: AuthenticatedMethodsBisectionRoute,
+  }
+
+const AuthenticatedMethodsRouteRouteWithChildren =
+  AuthenticatedMethodsRouteRoute._addFileChildren(
+    AuthenticatedMethodsRouteRouteChildren,
+  )
+
 interface AuthenticatedSettingsRouteRouteChildren {
   AuthenticatedSettingsAccountRoute: typeof AuthenticatedSettingsAccountRoute
   AuthenticatedSettingsAppearanceRoute: typeof AuthenticatedSettingsAppearanceRoute
@@ -460,6 +503,7 @@ const AuthenticatedSettingsRouteRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedMethodsRouteRoute: typeof AuthenticatedMethodsRouteRouteWithChildren
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
@@ -470,6 +514,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedMethodsRouteRoute: AuthenticatedMethodsRouteRouteWithChildren,
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
@@ -528,6 +573,7 @@ const ClerkRouteRouteWithChildren = ClerkRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '': typeof AuthenticatedRouteRouteWithChildren
   '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
+  '/methods': typeof AuthenticatedMethodsRouteRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
   '/clerk/': typeof ClerkauthRouteRouteWithChildren
   '/forgot-password': typeof authForgotPasswordRoute
@@ -541,6 +587,7 @@ export interface FileRoutesByFullPath {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
+  '/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -557,6 +604,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/methods': typeof AuthenticatedMethodsRouteRouteWithChildren
   '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
   '/forgot-password': typeof authForgotPasswordRoute
   '/otp': typeof authOtpRoute
@@ -569,6 +617,7 @@ export interface FileRoutesByTo {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
+  '/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -588,6 +637,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/clerk': typeof ClerkRouteRouteWithChildren
+  '/_authenticated/methods': typeof AuthenticatedMethodsRouteRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
   '/clerk/(auth)': typeof ClerkauthRouteRouteWithChildren
   '/clerk/_authenticated': typeof ClerkAuthenticatedRouteRouteWithChildren
@@ -602,6 +652,7 @@ export interface FileRoutesById {
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
@@ -622,6 +673,7 @@ export interface FileRouteTypes {
   fullPaths:
     | ''
     | '/clerk'
+    | '/methods'
     | '/settings'
     | '/clerk/'
     | '/forgot-password'
@@ -635,6 +687,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/'
+    | '/methods/bisection'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -650,6 +703,7 @@ export interface FileRouteTypes {
     | '/users'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/methods'
     | '/clerk'
     | '/forgot-password'
     | '/otp'
@@ -662,6 +716,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/'
+    | '/methods/bisection'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -679,6 +734,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_authenticated'
     | '/clerk'
+    | '/_authenticated/methods'
     | '/_authenticated/settings'
     | '/clerk/(auth)'
     | '/clerk/_authenticated'
@@ -693,6 +749,7 @@ export interface FileRouteTypes {
     | '/(errors)/500'
     | '/(errors)/503'
     | '/_authenticated/'
+    | '/_authenticated/methods/bisection'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
     | '/_authenticated/settings/display'
@@ -766,6 +823,7 @@ export const routeTree = rootRoute
     "/_authenticated": {
       "filePath": "_authenticated/route.tsx",
       "children": [
+        "/_authenticated/methods",
         "/_authenticated/settings",
         "/_authenticated/",
         "/_authenticated/apps/",
@@ -780,6 +838,13 @@ export const routeTree = rootRoute
       "children": [
         "/clerk/(auth)",
         "/clerk/_authenticated"
+      ]
+    },
+    "/_authenticated/methods": {
+      "filePath": "_authenticated/methods/route.tsx",
+      "parent": "/_authenticated",
+      "children": [
+        "/_authenticated/methods/bisection"
       ]
     },
     "/_authenticated/settings": {
@@ -841,6 +906,10 @@ export const routeTree = rootRoute
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",
       "parent": "/_authenticated"
+    },
+    "/_authenticated/methods/bisection": {
+      "filePath": "_authenticated/methods/bisection.tsx",
+      "parent": "/_authenticated/methods"
     },
     "/_authenticated/settings/account": {
       "filePath": "_authenticated/settings/account.tsx",
