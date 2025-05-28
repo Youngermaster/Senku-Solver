@@ -1,4 +1,7 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { Header } from '@/components/layout/header'
+import { Search } from '@/components/search'
+import { ThemeSwitch } from '@/components/theme-switch'
 
 export const Route = createFileRoute('/_authenticated/methods')({
   component: MethodsLayout,
@@ -6,14 +9,16 @@ export const Route = createFileRoute('/_authenticated/methods')({
 
 function MethodsLayout() {
   return (
-    <div className='container mx-auto py-6'>
-      <div className='mb-6'>
-        <h1 className='text-3xl font-bold'>Métodos Numéricos</h1>
-        <p className='text-muted-foreground mt-2'>
-          Herramientas para resolver problemas de análisis numérico
-        </p>
+    <>
+      <Header>
+        <div className='ml-auto flex items-center space-x-4'>
+          <Search />
+          <ThemeSwitch />
+        </div>
+      </Header>
+      <div className='container mx-auto py-6'>
+        <Outlet />
       </div>
-      <Outlet />
-    </div>
+    </>
   )
 }

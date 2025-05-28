@@ -55,8 +55,8 @@ TODO
    - [x] Implementar el método de Punto Fijo.
    - [x] Implementar el método de Regla Falsa.
    - [x] Implementar el método de Newton-Raphson.
-   - [ ] Implementar el método de Secante.
-   - [ ] Implementar el método de Raíces Múltiples.
+   - [x] Implementar el método de Secante.
+   - [x] Implementar el método de Raíces Múltiples.
    - [x] Añadir funcionalidad de visualización de gráficos.
 
 3. **Desarrollo del Capítulo 2: Métodos Iterativos**

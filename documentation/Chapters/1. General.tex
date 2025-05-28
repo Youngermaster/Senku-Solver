@@ -1,0 +1,242 @@
+\chapter{Métodos Numéricos para Encontrar Raíces de Ecuaciones}
+
+\section{Introducción}
+
+En el presente capítulo se desarrolla una aplicación web interactiva denominada \textbf{Senku Solver} que implementa seis métodos numéricos fundamentales para la búsqueda de raíces de ecuaciones no lineales. La aplicación está construida utilizando tecnologías web modernas como React, TypeScript y Vite, proporcionando una interfaz de usuario intuitiva y responsiva que permite a los usuarios explorar, comparar y analizar el comportamiento de diferentes algoritmos numéricos.
+
+\section{Métodos Implementados}
+
+La aplicación incluye la implementación completa de los siguientes métodos numéricos:
+
+\subsection{Métodos de Intervalo}
+
+\subsubsection{Método de Bisección}
+Implementa el algoritmo clásico de bisección que garantiza la convergencia cuando la función cambia de signo en el intervalo dado. El método utiliza la fórmula:
+\[
+x_m = \frac{x_i + x_s}{2}
+\]
+donde se selecciona el subintervalo que mantiene el cambio de signo. La convergencia está garantizada con una tasa de convergencia lineal.
+
+\subsubsection{Método de Regla Falsa (False Position)}
+Mejora el método de bisección utilizando interpolación lineal para aproximar la raíz. La fórmula utilizada es:
+\[
+x_r = x_i - \frac{f(x_i)(x_s - x_i)}{f(x_s) - f(x_i)}
+\]
+Este método generalmente converge más rápido que bisección manteniendo la robustez de los métodos de intervalo.
+
+\subsection{Métodos de Punto Fijo}
+
+\subsubsection{Método de Punto Fijo}
+Transforma la ecuación $f(x) = 0$ en la forma $x = g(x)$ y utiliza la iteración:
+\[
+x_{n+1} = g(x_n)
+\]
+La convergencia depende de que $|g'(x)| < 1$ en el intervalo de interés. La aplicación permite al usuario especificar tanto $f(x)$ como $g(x)$ para máxima flexibilidad.
+
+\subsection{Métodos Basados en Derivadas}
+
+\subsubsection{Método de Newton-Raphson}
+Implementa el algoritmo clásico de Newton que utiliza información de la derivada:
+\[
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\]
+Ofrece convergencia cuadrática cuando las condiciones iniciales son apropiadas, pero requiere el cálculo de la derivada.
+
+\subsubsection{Método de la Secante}
+Aproxima la derivada utilizando dos puntos anteriores, eliminando la necesidad de calcular derivadas analíticamente:
+\[
+x_{n+1} = x_n - \frac{f(x_n)(x_n - x_{n-1})}{f(x_n) - f(x_{n-1})}
+\]
+Proporciona una convergencia superlineal (orden $\approx 1.618$) sin requerir derivadas.
+
+\subsubsection{Método de Raíces Múltiples}
+Utiliza una modificación del método de Newton para manejar raíces múltiples donde $f(x) = f'(x) = 0$:
+\[
+x_{n+1} = x_n - \frac{f(x_n) \cdot f'(x_n)}{[f'(x_n)]^2 - f(x_n) \cdot f''(x_n)}
+\]
+Este método restaura la convergencia cuadrática en presencia de raíces múltiples.
+
+\section{Arquitectura del Sistema}
+
+\subsection{Tecnologías Utilizadas}
+
+La aplicación utiliza un stack tecnológico moderno:
+
+\begin{itemize}
+    \item \textbf{Frontend}: React con TypeScript para type safety y mejor experiencia de desarrollo
+    \item \textbf{Build Tool}: Vite para compilación rápida y hot reloading
+    \item \textbf{UI Framework}: shadcn/ui con Tailwind CSS para interfaces modernas y responsivas
+    \item \textbf{Routing}: TanStack Router para navegación tipo-segura
+    \item \textbf{Icons}: Tabler Icons y Lucide React para iconografía consistente
+\end{itemize}
+
+\subsection{Estructura de Componentes}
+
+Cada método numérico sigue una arquitectura modular consistente:
+
+\begin{itemize}
+    \item \textbf{Algoritmo}: Implementación pura en TypeScript sin dependencias de UI
+    \item \textbf{Componente Principal}: Interfaz de usuario para configuración y resultados
+    \item \textbf{Tabla de Iteraciones}: Componente especializado para mostrar datos tabulares
+    \item \textbf{Ruta}: Configuración de navegación usando file-based routing
+\end{itemize}
+
+\section{Funcionalidades de la Interfaz}
+
+\subsection{Entrada de Datos}
+
+La aplicación proporciona una interfaz intuitiva para la entrada de datos:
+
+\begin{itemize}
+    \item \textbf{Funciones Matemáticas}: Soporte completo para funciones algebraicas usando sintaxis JavaScript estándar
+    \item \textbf{Operadores Soportados}: funciones trigonométricas ($\sin$, $\cos$, $\tan$), exponencial ($\exp$), logaritmo ($\log$), raíz cuadrada, y operaciones aritméticas básicas
+    \item \textbf{Validación en Tiempo Real}: Evaluación inmediata de expresiones para detectar errores
+    \item \textbf{Ejemplos Contextuales}: Placeholders específicos para cada método con ejemplos relevantes
+\end{itemize}
+
+\subsection{Visualización de Resultados}
+
+Cada método presenta sus resultados de manera clara y organizada:
+
+\begin{itemize}
+    \item \textbf{Estado de Convergencia}: Badges visuales indicando éxito o falla
+    \item \textbf{Métricas Principales}: Raíz aproximada, error final, número de iteraciones
+    \item \textbf{Tablas Detalladas}: Historial completo de iteraciones con formateo numérico apropiado
+    \item \textbf{Mensajes Informativos}: Explicaciones contextuales del comportamiento del algoritmo
+\end{itemize}
+
+\section{Sistema de Comparación}
+
+\subsection{Metodología de Análisis}
+
+La aplicación incluye un módulo de comparación automática que ejecuta todos los métodos con los mismos parámetros y función objetivo. El análisis utiliza los siguientes criterios:
+
+\subsubsection{Criterios de Evaluación}
+
+\begin{enumerate}
+    \item \textbf{Convergencia}: Prioridad máxima - el método debe converger a una solución válida
+    \item \textbf{Eficiencia Iterativa}: Entre métodos convergentes, se prefiere menor número de iteraciones
+    \item \textbf{Tiempo de Ejecución}: Medición precisa usando \texttt{performance.now()} para comparar velocidad
+    \item \textbf{Precisión}: Evaluación del error final alcanzado
+\end{enumerate}
+
+\subsubsection{Proceso de Comparación}
+
+El sistema ejecuta automáticamente:
+
+\begin{enumerate}
+    \item Configuración uniforme de parámetros (tolerancia, máximo de iteraciones)
+    \item Ejecución secuencial con medición temporal
+    \item Análisis estadístico de resultados
+    \item Identificación del método óptimo basado en criterios ponderados
+    \item Generación de informe exportable en formato CSV
+\end{enumerate}
+
+\subsection{Métricas Reportadas}
+
+El informe de comparación incluye:
+
+\begin{itemize}
+    \item \textbf{Tabla Comparativa}: Resultados lado a lado de todos los métodos
+    \item \textbf{Identificación del Mejor Método}: Destacado visual del algoritmo óptimo
+    \item \textbf{Estadísticas Agregadas}: Promedio de iteraciones, tiempo total, tasa de convergencia
+    \item \textbf{Exportación de Datos}: Capacidad de descargar resultados para análisis posterior
+\end{itemize}
+
+\section{Manejo de Casos Especiales}
+
+\subsection{Validación de Entrada}
+
+El sistema implementa validaciones robustas:
+
+\begin{itemize}
+    \item \textbf{Sintaxis de Funciones}: Verificación de expresiones matemáticas válidas
+    \item \textbf{Condiciones de Convergencia}: Validación específica por método (ej. cambio de signo para bisección)
+    \item \textbf{Parámetros Numéricos}: Verificación de rangos válidos para tolerancia e iteraciones
+\end{itemize}
+
+\subsection{Manejo de Errores}
+
+Cada algoritmo incluye manejo específico de casos problemáticos:
+
+\begin{itemize}
+    \item \textbf{División por Cero}: Detección y manejo de derivadas nulas
+    \item \textbf{No Convergencia}: Límites de iteración con mensajes informativos
+    \item \textbf{Errores de Evaluación}: Captura de excepciones en evaluación de funciones
+\end{itemize}
+
+\section{Experiencia de Usuario}
+
+\subsection{Diseño de Interfaz}
+
+La aplicación utiliza principios de UX moderno:
+
+\begin{itemize}
+    \item \textbf{Diseño Responsivo}: Adaptación automática a diferentes tamaños de pantalla
+    \item \textbf{Tema Oscuro/Claro}: Soporte completo para preferencias de usuario
+    \item \textbf{Navegación Intuitiva}: Sidebar organizado por categorías de métodos
+    \item \textbf{Feedback Visual}: Indicadores de carga y estados de proceso
+\end{itemize}
+
+\subsection{Accesibilidad}
+
+Implementación de estándares de accesibilidad web:
+
+\begin{itemize}
+    \item \textbf{Navegación por Teclado}: Soporte completo para usuarios sin mouse
+    \item \textbf{Contraste Adecuado}: Cumplimiento de estándares WCAG
+    \item \textbf{Etiquetas Semánticas}: HTML estructurado para lectores de pantalla
+\end{itemize}
+
+\section{Casos de Uso y Ejemplos}
+
+\subsection{Función de Prueba Principal}
+
+La aplicación utiliza por defecto la función:
+\[
+f(x) = \log(\sin^2(x) + 1) - \frac{1}{2}
+\]
+
+Esta función presenta características interesantes para el análisis:
+\begin{itemize}
+    \item Comportamiento no lineal complejo
+    \item Múltiples raíces en diferentes intervalos
+    \item Permite evaluación comparativa significativa
+\end{itemize}
+
+\subsection{Resultados Típicos}
+
+En pruebas con la función por defecto, los métodos muestran el siguiente comportamiento relativo:
+
+\begin{itemize}
+    \item \textbf{Newton-Raphson}: Convergencia más rápida cuando la derivada está disponible
+    \item \textbf{Secante}: Buen balance entre velocidad y simplicidad de implementación
+    \item \textbf{Bisección}: Mayor robustez pero convergencia más lenta
+    \item \textbf{Regla Falsa}: Mejora sobre bisección manteniendo garantías de convergencia
+\end{itemize}
+
+\section{Conclusiones y Trabajo Futuro}
+
+\subsection{Logros del Proyecto}
+
+El desarrollo de Senku Solver representa una implementación exitosa de:
+
+\begin{enumerate}
+    \item Sistema completo de métodos numéricos para búsqueda de raíces
+    \item Interfaz de usuario moderna e intuitiva
+    \item Herramientas de análisis y comparación automática
+    \item Arquitectura modular y extensible
+\end{enumerate}
+
+\subsection{Extensiones Planificadas}
+
+El proyecto está diseñado para futuras extensiones:
+
+\begin{itemize}
+    \item \textbf{Visualización Gráfica}: Integración de gráficas de funciones y convergencia
+    \item \textbf{Métodos Adicionales}: Implementación de variantes y métodos especializados
+    \item \textbf{Optimización WASM}: Migración de algoritmos críticos a WebAssembly para mayor rendimiento
+    \item \textbf{API Backend}: Desarrollo de servicios para análisis más complejos
+\end{itemize}
+
+La implementación actual establece una base sólida para el desarrollo de una suite completa de herramientas de análisis numérico, cumpliendo con los objetivos académicos mientras proporciona una experiencia de usuario profesional y moderna.
