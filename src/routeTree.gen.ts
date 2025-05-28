@@ -11,7 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ClerkRouteImport } from './routes/clerk/route'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index'
 import { Route as errors503Import } from './routes/(errors)/503'
@@ -19,27 +18,10 @@ import { Route as errors500Import } from './routes/(errors)/500'
 import { Route as errors404Import } from './routes/(errors)/404'
 import { Route as errors403Import } from './routes/(errors)/403'
 import { Route as errors401Import } from './routes/(errors)/401'
-import { Route as authSignUpImport } from './routes/(auth)/sign-up'
-import { Route as authSignIn2Import } from './routes/(auth)/sign-in-2'
-import { Route as authSignInImport } from './routes/(auth)/sign-in'
-import { Route as authOtpImport } from './routes/(auth)/otp'
-import { Route as authForgotPasswordImport } from './routes/(auth)/forgot-password'
-import { Route as ClerkAuthenticatedRouteImport } from './routes/clerk/_authenticated/route'
-import { Route as ClerkauthRouteImport } from './routes/clerk/(auth)/route'
 import { Route as AuthenticatedMethodsRouteImport } from './routes/_authenticated/methods/route'
-import { Route as AuthenticatedUsersIndexImport } from './routes/_authenticated/users/index'
-import { Route as ClerkAuthenticatedUserManagementImport } from './routes/clerk/_authenticated/user-management'
-import { Route as ClerkauthSignUpImport } from './routes/clerk/(auth)/sign-up'
-import { Route as ClerkauthSignInImport } from './routes/clerk/(auth)/sign-in'
 import { Route as AuthenticatedMethodsBisectionImport } from './routes/_authenticated/methods/bisection'
 
 // Create/Update Routes
-
-const ClerkRouteRoute = ClerkRouteImport.update({
-  id: '/clerk',
-  path: '/clerk',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const AuthenticatedRouteRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
@@ -82,75 +64,10 @@ const errors401Route = errors401Import.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const authSignUpRoute = authSignUpImport.update({
-  id: '/(auth)/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const authSignIn2Route = authSignIn2Import.update({
-  id: '/(auth)/sign-in-2',
-  path: '/sign-in-2',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const authSignInRoute = authSignInImport.update({
-  id: '/(auth)/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const authOtpRoute = authOtpImport.update({
-  id: '/(auth)/otp',
-  path: '/otp',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const authForgotPasswordRoute = authForgotPasswordImport.update({
-  id: '/(auth)/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ClerkAuthenticatedRouteRoute = ClerkAuthenticatedRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => ClerkRouteRoute,
-} as any)
-
-const ClerkauthRouteRoute = ClerkauthRouteImport.update({
-  id: '/(auth)',
-  getParentRoute: () => ClerkRouteRoute,
-} as any)
-
 const AuthenticatedMethodsRouteRoute = AuthenticatedMethodsRouteImport.update({
   id: '/methods',
   path: '/methods',
   getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-
-const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexImport.update({
-  id: '/users/',
-  path: '/users/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-
-const ClerkAuthenticatedUserManagementRoute =
-  ClerkAuthenticatedUserManagementImport.update({
-    id: '/user-management',
-    path: '/user-management',
-    getParentRoute: () => ClerkAuthenticatedRouteRoute,
-  } as any)
-
-const ClerkauthSignUpRoute = ClerkauthSignUpImport.update({
-  id: '/sign-up',
-  path: '/sign-up',
-  getParentRoute: () => ClerkauthRouteRoute,
-} as any)
-
-const ClerkauthSignInRoute = ClerkauthSignInImport.update({
-  id: '/sign-in',
-  path: '/sign-in',
-  getParentRoute: () => ClerkauthRouteRoute,
 } as any)
 
 const AuthenticatedMethodsBisectionRoute =
@@ -171,68 +88,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRoute
     }
-    '/clerk': {
-      id: '/clerk'
-      path: '/clerk'
-      fullPath: '/clerk'
-      preLoaderRoute: typeof ClerkRouteImport
-      parentRoute: typeof rootRoute
-    }
     '/_authenticated/methods': {
       id: '/_authenticated/methods'
       path: '/methods'
       fullPath: '/methods'
       preLoaderRoute: typeof AuthenticatedMethodsRouteImport
       parentRoute: typeof AuthenticatedRouteImport
-    }
-    '/clerk/(auth)': {
-      id: '/clerk/(auth)'
-      path: '/'
-      fullPath: '/clerk/'
-      preLoaderRoute: typeof ClerkauthRouteImport
-      parentRoute: typeof ClerkRouteImport
-    }
-    '/clerk/_authenticated': {
-      id: '/clerk/_authenticated'
-      path: ''
-      fullPath: '/clerk'
-      preLoaderRoute: typeof ClerkAuthenticatedRouteImport
-      parentRoute: typeof ClerkRouteImport
-    }
-    '/(auth)/forgot-password': {
-      id: '/(auth)/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof authForgotPasswordImport
-      parentRoute: typeof rootRoute
-    }
-    '/(auth)/otp': {
-      id: '/(auth)/otp'
-      path: '/otp'
-      fullPath: '/otp'
-      preLoaderRoute: typeof authOtpImport
-      parentRoute: typeof rootRoute
-    }
-    '/(auth)/sign-in': {
-      id: '/(auth)/sign-in'
-      path: '/sign-in'
-      fullPath: '/sign-in'
-      preLoaderRoute: typeof authSignInImport
-      parentRoute: typeof rootRoute
-    }
-    '/(auth)/sign-in-2': {
-      id: '/(auth)/sign-in-2'
-      path: '/sign-in-2'
-      fullPath: '/sign-in-2'
-      preLoaderRoute: typeof authSignIn2Import
-      parentRoute: typeof rootRoute
-    }
-    '/(auth)/sign-up': {
-      id: '/(auth)/sign-up'
-      path: '/sign-up'
-      fullPath: '/sign-up'
-      preLoaderRoute: typeof authSignUpImport
-      parentRoute: typeof rootRoute
     }
     '/(errors)/401': {
       id: '/(errors)/401'
@@ -283,34 +144,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMethodsBisectionImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
-    '/clerk/(auth)/sign-in': {
-      id: '/clerk/(auth)/sign-in'
-      path: '/sign-in'
-      fullPath: '/clerk/sign-in'
-      preLoaderRoute: typeof ClerkauthSignInImport
-      parentRoute: typeof ClerkauthRouteImport
-    }
-    '/clerk/(auth)/sign-up': {
-      id: '/clerk/(auth)/sign-up'
-      path: '/sign-up'
-      fullPath: '/clerk/sign-up'
-      preLoaderRoute: typeof ClerkauthSignUpImport
-      parentRoute: typeof ClerkauthRouteImport
-    }
-    '/clerk/_authenticated/user-management': {
-      id: '/clerk/_authenticated/user-management'
-      path: '/user-management'
-      fullPath: '/clerk/user-management'
-      preLoaderRoute: typeof ClerkAuthenticatedUserManagementImport
-      parentRoute: typeof ClerkAuthenticatedRouteImport
-    }
-    '/_authenticated/users/': {
-      id: '/_authenticated/users/'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof AuthenticatedUsersIndexImport
-      parentRoute: typeof AuthenticatedRouteImport
-    }
   }
 }
 
@@ -333,71 +166,19 @@ const AuthenticatedMethodsRouteRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedMethodsRouteRoute: typeof AuthenticatedMethodsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
-  AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMethodsRouteRoute: AuthenticatedMethodsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-  AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface ClerkauthRouteRouteChildren {
-  ClerkauthSignInRoute: typeof ClerkauthSignInRoute
-  ClerkauthSignUpRoute: typeof ClerkauthSignUpRoute
-}
-
-const ClerkauthRouteRouteChildren: ClerkauthRouteRouteChildren = {
-  ClerkauthSignInRoute: ClerkauthSignInRoute,
-  ClerkauthSignUpRoute: ClerkauthSignUpRoute,
-}
-
-const ClerkauthRouteRouteWithChildren = ClerkauthRouteRoute._addFileChildren(
-  ClerkauthRouteRouteChildren,
-)
-
-interface ClerkAuthenticatedRouteRouteChildren {
-  ClerkAuthenticatedUserManagementRoute: typeof ClerkAuthenticatedUserManagementRoute
-}
-
-const ClerkAuthenticatedRouteRouteChildren: ClerkAuthenticatedRouteRouteChildren =
-  {
-    ClerkAuthenticatedUserManagementRoute:
-      ClerkAuthenticatedUserManagementRoute,
-  }
-
-const ClerkAuthenticatedRouteRouteWithChildren =
-  ClerkAuthenticatedRouteRoute._addFileChildren(
-    ClerkAuthenticatedRouteRouteChildren,
-  )
-
-interface ClerkRouteRouteChildren {
-  ClerkauthRouteRoute: typeof ClerkauthRouteRouteWithChildren
-  ClerkAuthenticatedRouteRoute: typeof ClerkAuthenticatedRouteRouteWithChildren
-}
-
-const ClerkRouteRouteChildren: ClerkRouteRouteChildren = {
-  ClerkauthRouteRoute: ClerkauthRouteRouteWithChildren,
-  ClerkAuthenticatedRouteRoute: ClerkAuthenticatedRouteRouteWithChildren,
-}
-
-const ClerkRouteRouteWithChildren = ClerkRouteRoute._addFileChildren(
-  ClerkRouteRouteChildren,
-)
-
 export interface FileRoutesByFullPath {
   '': typeof AuthenticatedRouteRouteWithChildren
-  '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
   '/methods': typeof AuthenticatedMethodsRouteRouteWithChildren
-  '/clerk/': typeof ClerkauthRouteRouteWithChildren
-  '/forgot-password': typeof authForgotPasswordRoute
-  '/otp': typeof authOtpRoute
-  '/sign-in': typeof authSignInRoute
-  '/sign-in-2': typeof authSignIn2Route
-  '/sign-up': typeof authSignUpRoute
   '/401': typeof errors401Route
   '/403': typeof errors403Route
   '/404': typeof errors404Route
@@ -405,20 +186,10 @@ export interface FileRoutesByFullPath {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
-  '/clerk/sign-in': typeof ClerkauthSignInRoute
-  '/clerk/sign-up': typeof ClerkauthSignUpRoute
-  '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
-  '/users': typeof AuthenticatedUsersIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/methods': typeof AuthenticatedMethodsRouteRouteWithChildren
-  '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
-  '/forgot-password': typeof authForgotPasswordRoute
-  '/otp': typeof authOtpRoute
-  '/sign-in': typeof authSignInRoute
-  '/sign-in-2': typeof authSignIn2Route
-  '/sign-up': typeof authSignUpRoute
   '/401': typeof errors401Route
   '/403': typeof errors403Route
   '/404': typeof errors404Route
@@ -426,24 +197,12 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
-  '/clerk/sign-in': typeof ClerkauthSignInRoute
-  '/clerk/sign-up': typeof ClerkauthSignUpRoute
-  '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
-  '/users': typeof AuthenticatedUsersIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/clerk': typeof ClerkRouteRouteWithChildren
   '/_authenticated/methods': typeof AuthenticatedMethodsRouteRouteWithChildren
-  '/clerk/(auth)': typeof ClerkauthRouteRouteWithChildren
-  '/clerk/_authenticated': typeof ClerkAuthenticatedRouteRouteWithChildren
-  '/(auth)/forgot-password': typeof authForgotPasswordRoute
-  '/(auth)/otp': typeof authOtpRoute
-  '/(auth)/sign-in': typeof authSignInRoute
-  '/(auth)/sign-in-2': typeof authSignIn2Route
-  '/(auth)/sign-up': typeof authSignUpRoute
   '/(errors)/401': typeof errors401Route
   '/(errors)/403': typeof errors403Route
   '/(errors)/404': typeof errors404Route
@@ -451,24 +210,13 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
-  '/clerk/(auth)/sign-in': typeof ClerkauthSignInRoute
-  '/clerk/(auth)/sign-up': typeof ClerkauthSignUpRoute
-  '/clerk/_authenticated/user-management': typeof ClerkAuthenticatedUserManagementRoute
-  '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
-    | '/clerk'
     | '/methods'
-    | '/clerk/'
-    | '/forgot-password'
-    | '/otp'
-    | '/sign-in'
-    | '/sign-in-2'
-    | '/sign-up'
     | '/401'
     | '/403'
     | '/404'
@@ -476,19 +224,9 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/methods/bisection'
-    | '/clerk/sign-in'
-    | '/clerk/sign-up'
-    | '/clerk/user-management'
-    | '/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/methods'
-    | '/clerk'
-    | '/forgot-password'
-    | '/otp'
-    | '/sign-in'
-    | '/sign-in-2'
-    | '/sign-up'
     | '/401'
     | '/403'
     | '/404'
@@ -496,22 +234,10 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/methods/bisection'
-    | '/clerk/sign-in'
-    | '/clerk/sign-up'
-    | '/clerk/user-management'
-    | '/users'
   id:
     | '__root__'
     | '/_authenticated'
-    | '/clerk'
     | '/_authenticated/methods'
-    | '/clerk/(auth)'
-    | '/clerk/_authenticated'
-    | '/(auth)/forgot-password'
-    | '/(auth)/otp'
-    | '/(auth)/sign-in'
-    | '/(auth)/sign-in-2'
-    | '/(auth)/sign-up'
     | '/(errors)/401'
     | '/(errors)/403'
     | '/(errors)/404'
@@ -519,21 +245,11 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/'
     | '/_authenticated/methods/bisection'
-    | '/clerk/(auth)/sign-in'
-    | '/clerk/(auth)/sign-up'
-    | '/clerk/_authenticated/user-management'
-    | '/_authenticated/users/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  ClerkRouteRoute: typeof ClerkRouteRouteWithChildren
-  authForgotPasswordRoute: typeof authForgotPasswordRoute
-  authOtpRoute: typeof authOtpRoute
-  authSignInRoute: typeof authSignInRoute
-  authSignIn2Route: typeof authSignIn2Route
-  authSignUpRoute: typeof authSignUpRoute
   errors401Route: typeof errors401Route
   errors403Route: typeof errors403Route
   errors404Route: typeof errors404Route
@@ -543,12 +259,6 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  ClerkRouteRoute: ClerkRouteRouteWithChildren,
-  authForgotPasswordRoute: authForgotPasswordRoute,
-  authOtpRoute: authOtpRoute,
-  authSignInRoute: authSignInRoute,
-  authSignIn2Route: authSignIn2Route,
-  authSignUpRoute: authSignUpRoute,
   errors401Route: errors401Route,
   errors403Route: errors403Route,
   errors404Route: errors404Route,
@@ -567,12 +277,6 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_authenticated",
-        "/clerk",
-        "/(auth)/forgot-password",
-        "/(auth)/otp",
-        "/(auth)/sign-in",
-        "/(auth)/sign-in-2",
-        "/(auth)/sign-up",
         "/(errors)/401",
         "/(errors)/403",
         "/(errors)/404",
@@ -584,15 +288,7 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/route.tsx",
       "children": [
         "/_authenticated/methods",
-        "/_authenticated/",
-        "/_authenticated/users/"
-      ]
-    },
-    "/clerk": {
-      "filePath": "clerk/route.tsx",
-      "children": [
-        "/clerk/(auth)",
-        "/clerk/_authenticated"
+        "/_authenticated/"
       ]
     },
     "/_authenticated/methods": {
@@ -601,36 +297,6 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/methods/bisection"
       ]
-    },
-    "/clerk/(auth)": {
-      "filePath": "clerk/(auth)/route.tsx",
-      "parent": "/clerk",
-      "children": [
-        "/clerk/(auth)/sign-in",
-        "/clerk/(auth)/sign-up"
-      ]
-    },
-    "/clerk/_authenticated": {
-      "filePath": "clerk/_authenticated/route.tsx",
-      "parent": "/clerk",
-      "children": [
-        "/clerk/_authenticated/user-management"
-      ]
-    },
-    "/(auth)/forgot-password": {
-      "filePath": "(auth)/forgot-password.tsx"
-    },
-    "/(auth)/otp": {
-      "filePath": "(auth)/otp.tsx"
-    },
-    "/(auth)/sign-in": {
-      "filePath": "(auth)/sign-in.tsx"
-    },
-    "/(auth)/sign-in-2": {
-      "filePath": "(auth)/sign-in-2.tsx"
-    },
-    "/(auth)/sign-up": {
-      "filePath": "(auth)/sign-up.tsx"
     },
     "/(errors)/401": {
       "filePath": "(errors)/401.tsx"
@@ -654,22 +320,6 @@ export const routeTree = rootRoute
     "/_authenticated/methods/bisection": {
       "filePath": "_authenticated/methods/bisection.tsx",
       "parent": "/_authenticated/methods"
-    },
-    "/clerk/(auth)/sign-in": {
-      "filePath": "clerk/(auth)/sign-in.tsx",
-      "parent": "/clerk/(auth)"
-    },
-    "/clerk/(auth)/sign-up": {
-      "filePath": "clerk/(auth)/sign-up.tsx",
-      "parent": "/clerk/(auth)"
-    },
-    "/clerk/_authenticated/user-management": {
-      "filePath": "clerk/_authenticated/user-management.tsx",
-      "parent": "/clerk/_authenticated"
-    },
-    "/_authenticated/users/": {
-      "filePath": "_authenticated/users/index.tsx",
-      "parent": "/_authenticated"
     }
   }
 }
