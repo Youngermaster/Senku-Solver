@@ -26,21 +26,11 @@ import { Route as authOtpImport } from './routes/(auth)/otp'
 import { Route as authForgotPasswordImport } from './routes/(auth)/forgot-password'
 import { Route as ClerkAuthenticatedRouteImport } from './routes/clerk/_authenticated/route'
 import { Route as ClerkauthRouteImport } from './routes/clerk/(auth)/route'
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings/route'
 import { Route as AuthenticatedMethodsRouteImport } from './routes/_authenticated/methods/route'
 import { Route as AuthenticatedUsersIndexImport } from './routes/_authenticated/users/index'
-import { Route as AuthenticatedTasksIndexImport } from './routes/_authenticated/tasks/index'
-import { Route as AuthenticatedSettingsIndexImport } from './routes/_authenticated/settings/index'
-import { Route as AuthenticatedHelpCenterIndexImport } from './routes/_authenticated/help-center/index'
-import { Route as AuthenticatedChatsIndexImport } from './routes/_authenticated/chats/index'
-import { Route as AuthenticatedAppsIndexImport } from './routes/_authenticated/apps/index'
 import { Route as ClerkAuthenticatedUserManagementImport } from './routes/clerk/_authenticated/user-management'
 import { Route as ClerkauthSignUpImport } from './routes/clerk/(auth)/sign-up'
 import { Route as ClerkauthSignInImport } from './routes/clerk/(auth)/sign-in'
-import { Route as AuthenticatedSettingsNotificationsImport } from './routes/_authenticated/settings/notifications'
-import { Route as AuthenticatedSettingsDisplayImport } from './routes/_authenticated/settings/display'
-import { Route as AuthenticatedSettingsAppearanceImport } from './routes/_authenticated/settings/appearance'
-import { Route as AuthenticatedSettingsAccountImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedMethodsBisectionImport } from './routes/_authenticated/methods/bisection'
 
 // Create/Update Routes
@@ -132,14 +122,6 @@ const ClerkauthRouteRoute = ClerkauthRouteImport.update({
   getParentRoute: () => ClerkRouteRoute,
 } as any)
 
-const AuthenticatedSettingsRouteRoute = AuthenticatedSettingsRouteImport.update(
-  {
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any,
-)
-
 const AuthenticatedMethodsRouteRoute = AuthenticatedMethodsRouteImport.update({
   id: '/methods',
   path: '/methods',
@@ -149,39 +131,6 @@ const AuthenticatedMethodsRouteRoute = AuthenticatedMethodsRouteImport.update({
 const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexImport.update({
   id: '/users/',
   path: '/users/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-
-const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexImport.update({
-  id: '/tasks/',
-  path: '/tasks/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-
-const AuthenticatedSettingsIndexRoute = AuthenticatedSettingsIndexImport.update(
-  {
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any,
-)
-
-const AuthenticatedHelpCenterIndexRoute =
-  AuthenticatedHelpCenterIndexImport.update({
-    id: '/help-center/',
-    path: '/help-center/',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-
-const AuthenticatedChatsIndexRoute = AuthenticatedChatsIndexImport.update({
-  id: '/chats/',
-  path: '/chats/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-
-const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexImport.update({
-  id: '/apps/',
-  path: '/apps/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
@@ -203,34 +152,6 @@ const ClerkauthSignInRoute = ClerkauthSignInImport.update({
   path: '/sign-in',
   getParentRoute: () => ClerkauthRouteRoute,
 } as any)
-
-const AuthenticatedSettingsNotificationsRoute =
-  AuthenticatedSettingsNotificationsImport.update({
-    id: '/notifications',
-    path: '/notifications',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-
-const AuthenticatedSettingsDisplayRoute =
-  AuthenticatedSettingsDisplayImport.update({
-    id: '/display',
-    path: '/display',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-
-const AuthenticatedSettingsAppearanceRoute =
-  AuthenticatedSettingsAppearanceImport.update({
-    id: '/appearance',
-    path: '/appearance',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
-
-const AuthenticatedSettingsAccountRoute =
-  AuthenticatedSettingsAccountImport.update({
-    id: '/account',
-    path: '/account',
-    getParentRoute: () => AuthenticatedSettingsRouteRoute,
-  } as any)
 
 const AuthenticatedMethodsBisectionRoute =
   AuthenticatedMethodsBisectionImport.update({
@@ -262,13 +183,6 @@ declare module '@tanstack/react-router' {
       path: '/methods'
       fullPath: '/methods'
       preLoaderRoute: typeof AuthenticatedMethodsRouteImport
-      parentRoute: typeof AuthenticatedRouteImport
-    }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteImport
     }
     '/clerk/(auth)': {
@@ -369,34 +283,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMethodsBisectionImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
-    '/_authenticated/settings/account': {
-      id: '/_authenticated/settings/account'
-      path: '/account'
-      fullPath: '/settings/account'
-      preLoaderRoute: typeof AuthenticatedSettingsAccountImport
-      parentRoute: typeof AuthenticatedSettingsRouteImport
-    }
-    '/_authenticated/settings/appearance': {
-      id: '/_authenticated/settings/appearance'
-      path: '/appearance'
-      fullPath: '/settings/appearance'
-      preLoaderRoute: typeof AuthenticatedSettingsAppearanceImport
-      parentRoute: typeof AuthenticatedSettingsRouteImport
-    }
-    '/_authenticated/settings/display': {
-      id: '/_authenticated/settings/display'
-      path: '/display'
-      fullPath: '/settings/display'
-      preLoaderRoute: typeof AuthenticatedSettingsDisplayImport
-      parentRoute: typeof AuthenticatedSettingsRouteImport
-    }
-    '/_authenticated/settings/notifications': {
-      id: '/_authenticated/settings/notifications'
-      path: '/notifications'
-      fullPath: '/settings/notifications'
-      preLoaderRoute: typeof AuthenticatedSettingsNotificationsImport
-      parentRoute: typeof AuthenticatedSettingsRouteImport
-    }
     '/clerk/(auth)/sign-in': {
       id: '/clerk/(auth)/sign-in'
       path: '/sign-in'
@@ -417,41 +303,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/clerk/user-management'
       preLoaderRoute: typeof ClerkAuthenticatedUserManagementImport
       parentRoute: typeof ClerkAuthenticatedRouteImport
-    }
-    '/_authenticated/apps/': {
-      id: '/_authenticated/apps/'
-      path: '/apps'
-      fullPath: '/apps'
-      preLoaderRoute: typeof AuthenticatedAppsIndexImport
-      parentRoute: typeof AuthenticatedRouteImport
-    }
-    '/_authenticated/chats/': {
-      id: '/_authenticated/chats/'
-      path: '/chats'
-      fullPath: '/chats'
-      preLoaderRoute: typeof AuthenticatedChatsIndexImport
-      parentRoute: typeof AuthenticatedRouteImport
-    }
-    '/_authenticated/help-center/': {
-      id: '/_authenticated/help-center/'
-      path: '/help-center'
-      fullPath: '/help-center'
-      preLoaderRoute: typeof AuthenticatedHelpCenterIndexImport
-      parentRoute: typeof AuthenticatedRouteImport
-    }
-    '/_authenticated/settings/': {
-      id: '/_authenticated/settings/'
-      path: '/'
-      fullPath: '/settings/'
-      preLoaderRoute: typeof AuthenticatedSettingsIndexImport
-      parentRoute: typeof AuthenticatedSettingsRouteImport
-    }
-    '/_authenticated/tasks/': {
-      id: '/_authenticated/tasks/'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksIndexImport
-      parentRoute: typeof AuthenticatedRouteImport
     }
     '/_authenticated/users/': {
       id: '/_authenticated/users/'
@@ -479,48 +330,15 @@ const AuthenticatedMethodsRouteRouteWithChildren =
     AuthenticatedMethodsRouteRouteChildren,
   )
 
-interface AuthenticatedSettingsRouteRouteChildren {
-  AuthenticatedSettingsAccountRoute: typeof AuthenticatedSettingsAccountRoute
-  AuthenticatedSettingsAppearanceRoute: typeof AuthenticatedSettingsAppearanceRoute
-  AuthenticatedSettingsDisplayRoute: typeof AuthenticatedSettingsDisplayRoute
-  AuthenticatedSettingsNotificationsRoute: typeof AuthenticatedSettingsNotificationsRoute
-  AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
-}
-
-const AuthenticatedSettingsRouteRouteChildren: AuthenticatedSettingsRouteRouteChildren =
-  {
-    AuthenticatedSettingsAccountRoute: AuthenticatedSettingsAccountRoute,
-    AuthenticatedSettingsAppearanceRoute: AuthenticatedSettingsAppearanceRoute,
-    AuthenticatedSettingsDisplayRoute: AuthenticatedSettingsDisplayRoute,
-    AuthenticatedSettingsNotificationsRoute:
-      AuthenticatedSettingsNotificationsRoute,
-    AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
-  }
-
-const AuthenticatedSettingsRouteRouteWithChildren =
-  AuthenticatedSettingsRouteRoute._addFileChildren(
-    AuthenticatedSettingsRouteRouteChildren,
-  )
-
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedMethodsRouteRoute: typeof AuthenticatedMethodsRouteRouteWithChildren
-  AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
-  AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
-  AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
-  AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
-  AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMethodsRouteRoute: AuthenticatedMethodsRouteRouteWithChildren,
-  AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-  AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
-  AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
-  AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
-  AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
 }
 
@@ -574,7 +392,6 @@ export interface FileRoutesByFullPath {
   '': typeof AuthenticatedRouteRouteWithChildren
   '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
   '/methods': typeof AuthenticatedMethodsRouteRouteWithChildren
-  '/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
   '/clerk/': typeof ClerkauthRouteRouteWithChildren
   '/forgot-password': typeof authForgotPasswordRoute
   '/otp': typeof authOtpRoute
@@ -588,18 +405,9 @@ export interface FileRoutesByFullPath {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
-  '/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/clerk/sign-in': typeof ClerkauthSignInRoute
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
-  '/apps': typeof AuthenticatedAppsIndexRoute
-  '/chats': typeof AuthenticatedChatsIndexRoute
-  '/help-center': typeof AuthenticatedHelpCenterIndexRoute
-  '/settings/': typeof AuthenticatedSettingsIndexRoute
-  '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
 }
 
@@ -618,18 +426,9 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
-  '/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/clerk/sign-in': typeof ClerkauthSignInRoute
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
-  '/apps': typeof AuthenticatedAppsIndexRoute
-  '/chats': typeof AuthenticatedChatsIndexRoute
-  '/help-center': typeof AuthenticatedHelpCenterIndexRoute
-  '/settings': typeof AuthenticatedSettingsIndexRoute
-  '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
 }
 
@@ -638,7 +437,6 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/clerk': typeof ClerkRouteRouteWithChildren
   '/_authenticated/methods': typeof AuthenticatedMethodsRouteRouteWithChildren
-  '/_authenticated/settings': typeof AuthenticatedSettingsRouteRouteWithChildren
   '/clerk/(auth)': typeof ClerkauthRouteRouteWithChildren
   '/clerk/_authenticated': typeof ClerkAuthenticatedRouteRouteWithChildren
   '/(auth)/forgot-password': typeof authForgotPasswordRoute
@@ -653,18 +451,9 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
-  '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
-  '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceRoute
-  '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayRoute
-  '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
   '/clerk/(auth)/sign-in': typeof ClerkauthSignInRoute
   '/clerk/(auth)/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/_authenticated/user-management': typeof ClerkAuthenticatedUserManagementRoute
-  '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
-  '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
-  '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
-  '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
-  '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
 }
 
@@ -674,7 +463,6 @@ export interface FileRouteTypes {
     | ''
     | '/clerk'
     | '/methods'
-    | '/settings'
     | '/clerk/'
     | '/forgot-password'
     | '/otp'
@@ -688,18 +476,9 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/methods/bisection'
-    | '/settings/account'
-    | '/settings/appearance'
-    | '/settings/display'
-    | '/settings/notifications'
     | '/clerk/sign-in'
     | '/clerk/sign-up'
     | '/clerk/user-management'
-    | '/apps'
-    | '/chats'
-    | '/help-center'
-    | '/settings/'
-    | '/tasks'
     | '/users'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -717,25 +496,15 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/methods/bisection'
-    | '/settings/account'
-    | '/settings/appearance'
-    | '/settings/display'
-    | '/settings/notifications'
     | '/clerk/sign-in'
     | '/clerk/sign-up'
     | '/clerk/user-management'
-    | '/apps'
-    | '/chats'
-    | '/help-center'
-    | '/settings'
-    | '/tasks'
     | '/users'
   id:
     | '__root__'
     | '/_authenticated'
     | '/clerk'
     | '/_authenticated/methods'
-    | '/_authenticated/settings'
     | '/clerk/(auth)'
     | '/clerk/_authenticated'
     | '/(auth)/forgot-password'
@@ -750,18 +519,9 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/'
     | '/_authenticated/methods/bisection'
-    | '/_authenticated/settings/account'
-    | '/_authenticated/settings/appearance'
-    | '/_authenticated/settings/display'
-    | '/_authenticated/settings/notifications'
     | '/clerk/(auth)/sign-in'
     | '/clerk/(auth)/sign-up'
     | '/clerk/_authenticated/user-management'
-    | '/_authenticated/apps/'
-    | '/_authenticated/chats/'
-    | '/_authenticated/help-center/'
-    | '/_authenticated/settings/'
-    | '/_authenticated/tasks/'
     | '/_authenticated/users/'
   fileRoutesById: FileRoutesById
 }
@@ -824,12 +584,7 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/route.tsx",
       "children": [
         "/_authenticated/methods",
-        "/_authenticated/settings",
         "/_authenticated/",
-        "/_authenticated/apps/",
-        "/_authenticated/chats/",
-        "/_authenticated/help-center/",
-        "/_authenticated/tasks/",
         "/_authenticated/users/"
       ]
     },
@@ -845,17 +600,6 @@ export const routeTree = rootRoute
       "parent": "/_authenticated",
       "children": [
         "/_authenticated/methods/bisection"
-      ]
-    },
-    "/_authenticated/settings": {
-      "filePath": "_authenticated/settings/route.tsx",
-      "parent": "/_authenticated",
-      "children": [
-        "/_authenticated/settings/account",
-        "/_authenticated/settings/appearance",
-        "/_authenticated/settings/display",
-        "/_authenticated/settings/notifications",
-        "/_authenticated/settings/"
       ]
     },
     "/clerk/(auth)": {
@@ -911,22 +655,6 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/methods/bisection.tsx",
       "parent": "/_authenticated/methods"
     },
-    "/_authenticated/settings/account": {
-      "filePath": "_authenticated/settings/account.tsx",
-      "parent": "/_authenticated/settings"
-    },
-    "/_authenticated/settings/appearance": {
-      "filePath": "_authenticated/settings/appearance.tsx",
-      "parent": "/_authenticated/settings"
-    },
-    "/_authenticated/settings/display": {
-      "filePath": "_authenticated/settings/display.tsx",
-      "parent": "/_authenticated/settings"
-    },
-    "/_authenticated/settings/notifications": {
-      "filePath": "_authenticated/settings/notifications.tsx",
-      "parent": "/_authenticated/settings"
-    },
     "/clerk/(auth)/sign-in": {
       "filePath": "clerk/(auth)/sign-in.tsx",
       "parent": "/clerk/(auth)"
@@ -938,26 +666,6 @@ export const routeTree = rootRoute
     "/clerk/_authenticated/user-management": {
       "filePath": "clerk/_authenticated/user-management.tsx",
       "parent": "/clerk/_authenticated"
-    },
-    "/_authenticated/apps/": {
-      "filePath": "_authenticated/apps/index.tsx",
-      "parent": "/_authenticated"
-    },
-    "/_authenticated/chats/": {
-      "filePath": "_authenticated/chats/index.tsx",
-      "parent": "/_authenticated"
-    },
-    "/_authenticated/help-center/": {
-      "filePath": "_authenticated/help-center/index.tsx",
-      "parent": "/_authenticated"
-    },
-    "/_authenticated/settings/": {
-      "filePath": "_authenticated/settings/index.tsx",
-      "parent": "/_authenticated/settings"
-    },
-    "/_authenticated/tasks/": {
-      "filePath": "_authenticated/tasks/index.tsx",
-      "parent": "/_authenticated"
     },
     "/_authenticated/users/": {
       "filePath": "_authenticated/users/index.tsx",
