@@ -33,7 +33,7 @@ export const sidebarData: SidebarData = {
     {
       name: 'Senku Solver',
       logo: Command,
-      plan: 'Vite + ShadcnUI',
+      plan: 'Numerical Analysis',
     },
     {
       name: 'Acme Inc',
