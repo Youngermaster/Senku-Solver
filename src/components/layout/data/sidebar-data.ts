@@ -1,4 +1,8 @@
-import { IconLayoutDashboard, IconVariable } from '@tabler/icons-react'
+import {
+  IconLayoutDashboard,
+  IconVariable,
+  IconChartLine,
+} from '@tabler/icons-react'
 import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
 import { type SidebarData } from '../types'
 
@@ -34,8 +38,39 @@ export const sidebarData: SidebarData = {
           url: '/methods/bisection',
           icon: IconVariable,
         },
+        {
+          title: 'Método de Punto Fijo',
+          url: '/methods/fixed-point',
+          icon: IconVariable,
+        },
+        {
+          title: 'Método de Regla Falsa',
+          url: '/methods/false-position',
+          icon: IconVariable,
+        },
+        {
+          title: 'Método de Newton-Raphson',
+          url: '/methods/newton-raphson',
+          icon: IconVariable,
+        },
+        {
+          title: 'Método de la Secante',
+          url: '/methods/secant',
+          icon: IconVariable,
+        },
+        {
+          title: 'Método de Raíces Múltiples',
+          url: '/methods/multiple-roots',
+          icon: IconVariable,
+        },
+        {
+          title: 'Comparación de Métodos',
+          url: '/methods/comparison',
+          icon: IconChartLine,
+        },
       ],
     },
+
     {
       title: 'General',
       items: [

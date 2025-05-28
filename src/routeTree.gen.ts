@@ -19,6 +19,12 @@ import { Route as errors404Import } from './routes/(errors)/404'
 import { Route as errors403Import } from './routes/(errors)/403'
 import { Route as errors401Import } from './routes/(errors)/401'
 import { Route as AuthenticatedMethodsRouteImport } from './routes/_authenticated/methods/route'
+import { Route as AuthenticatedMethodsSecantImport } from './routes/_authenticated/methods/secant'
+import { Route as AuthenticatedMethodsNewtonRaphsonImport } from './routes/_authenticated/methods/newton-raphson'
+import { Route as AuthenticatedMethodsMultipleRootsImport } from './routes/_authenticated/methods/multiple-roots'
+import { Route as AuthenticatedMethodsFixedPointImport } from './routes/_authenticated/methods/fixed-point'
+import { Route as AuthenticatedMethodsFalsePositionImport } from './routes/_authenticated/methods/false-position'
+import { Route as AuthenticatedMethodsComparisonImport } from './routes/_authenticated/methods/comparison'
 import { Route as AuthenticatedMethodsBisectionImport } from './routes/_authenticated/methods/bisection'
 
 // Create/Update Routes
@@ -69,6 +75,49 @@ const AuthenticatedMethodsRouteRoute = AuthenticatedMethodsRouteImport.update({
   path: '/methods',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+
+const AuthenticatedMethodsSecantRoute = AuthenticatedMethodsSecantImport.update(
+  {
+    id: '/secant',
+    path: '/secant',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any,
+)
+
+const AuthenticatedMethodsNewtonRaphsonRoute =
+  AuthenticatedMethodsNewtonRaphsonImport.update({
+    id: '/newton-raphson',
+    path: '/newton-raphson',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsMultipleRootsRoute =
+  AuthenticatedMethodsMultipleRootsImport.update({
+    id: '/multiple-roots',
+    path: '/multiple-roots',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsFixedPointRoute =
+  AuthenticatedMethodsFixedPointImport.update({
+    id: '/fixed-point',
+    path: '/fixed-point',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsFalsePositionRoute =
+  AuthenticatedMethodsFalsePositionImport.update({
+    id: '/false-position',
+    path: '/false-position',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsComparisonRoute =
+  AuthenticatedMethodsComparisonImport.update({
+    id: '/comparison',
+    path: '/comparison',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
 
 const AuthenticatedMethodsBisectionRoute =
   AuthenticatedMethodsBisectionImport.update({
@@ -144,6 +193,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMethodsBisectionImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
+    '/_authenticated/methods/comparison': {
+      id: '/_authenticated/methods/comparison'
+      path: '/comparison'
+      fullPath: '/methods/comparison'
+      preLoaderRoute: typeof AuthenticatedMethodsComparisonImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/false-position': {
+      id: '/_authenticated/methods/false-position'
+      path: '/false-position'
+      fullPath: '/methods/false-position'
+      preLoaderRoute: typeof AuthenticatedMethodsFalsePositionImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/fixed-point': {
+      id: '/_authenticated/methods/fixed-point'
+      path: '/fixed-point'
+      fullPath: '/methods/fixed-point'
+      preLoaderRoute: typeof AuthenticatedMethodsFixedPointImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/multiple-roots': {
+      id: '/_authenticated/methods/multiple-roots'
+      path: '/multiple-roots'
+      fullPath: '/methods/multiple-roots'
+      preLoaderRoute: typeof AuthenticatedMethodsMultipleRootsImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/newton-raphson': {
+      id: '/_authenticated/methods/newton-raphson'
+      path: '/newton-raphson'
+      fullPath: '/methods/newton-raphson'
+      preLoaderRoute: typeof AuthenticatedMethodsNewtonRaphsonImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/secant': {
+      id: '/_authenticated/methods/secant'
+      path: '/secant'
+      fullPath: '/methods/secant'
+      preLoaderRoute: typeof AuthenticatedMethodsSecantImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
   }
 }
 
@@ -151,11 +242,26 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedMethodsRouteRouteChildren {
   AuthenticatedMethodsBisectionRoute: typeof AuthenticatedMethodsBisectionRoute
+  AuthenticatedMethodsComparisonRoute: typeof AuthenticatedMethodsComparisonRoute
+  AuthenticatedMethodsFalsePositionRoute: typeof AuthenticatedMethodsFalsePositionRoute
+  AuthenticatedMethodsFixedPointRoute: typeof AuthenticatedMethodsFixedPointRoute
+  AuthenticatedMethodsMultipleRootsRoute: typeof AuthenticatedMethodsMultipleRootsRoute
+  AuthenticatedMethodsNewtonRaphsonRoute: typeof AuthenticatedMethodsNewtonRaphsonRoute
+  AuthenticatedMethodsSecantRoute: typeof AuthenticatedMethodsSecantRoute
 }
 
 const AuthenticatedMethodsRouteRouteChildren: AuthenticatedMethodsRouteRouteChildren =
   {
     AuthenticatedMethodsBisectionRoute: AuthenticatedMethodsBisectionRoute,
+    AuthenticatedMethodsComparisonRoute: AuthenticatedMethodsComparisonRoute,
+    AuthenticatedMethodsFalsePositionRoute:
+      AuthenticatedMethodsFalsePositionRoute,
+    AuthenticatedMethodsFixedPointRoute: AuthenticatedMethodsFixedPointRoute,
+    AuthenticatedMethodsMultipleRootsRoute:
+      AuthenticatedMethodsMultipleRootsRoute,
+    AuthenticatedMethodsNewtonRaphsonRoute:
+      AuthenticatedMethodsNewtonRaphsonRoute,
+    AuthenticatedMethodsSecantRoute: AuthenticatedMethodsSecantRoute,
   }
 
 const AuthenticatedMethodsRouteRouteWithChildren =
@@ -186,6 +292,12 @@ export interface FileRoutesByFullPath {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
+  '/methods/comparison': typeof AuthenticatedMethodsComparisonRoute
+  '/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
+  '/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
+  '/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
+  '/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
+  '/methods/secant': typeof AuthenticatedMethodsSecantRoute
 }
 
 export interface FileRoutesByTo {
@@ -197,6 +309,12 @@ export interface FileRoutesByTo {
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
   '/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
+  '/methods/comparison': typeof AuthenticatedMethodsComparisonRoute
+  '/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
+  '/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
+  '/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
+  '/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
+  '/methods/secant': typeof AuthenticatedMethodsSecantRoute
 }
 
 export interface FileRoutesById {
@@ -210,6 +328,12 @@ export interface FileRoutesById {
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/methods/bisection': typeof AuthenticatedMethodsBisectionRoute
+  '/_authenticated/methods/comparison': typeof AuthenticatedMethodsComparisonRoute
+  '/_authenticated/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
+  '/_authenticated/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
+  '/_authenticated/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
+  '/_authenticated/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
+  '/_authenticated/methods/secant': typeof AuthenticatedMethodsSecantRoute
 }
 
 export interface FileRouteTypes {
@@ -224,6 +348,12 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/methods/bisection'
+    | '/methods/comparison'
+    | '/methods/false-position'
+    | '/methods/fixed-point'
+    | '/methods/multiple-roots'
+    | '/methods/newton-raphson'
+    | '/methods/secant'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/methods'
@@ -234,6 +364,12 @@ export interface FileRouteTypes {
     | '/503'
     | '/'
     | '/methods/bisection'
+    | '/methods/comparison'
+    | '/methods/false-position'
+    | '/methods/fixed-point'
+    | '/methods/multiple-roots'
+    | '/methods/newton-raphson'
+    | '/methods/secant'
   id:
     | '__root__'
     | '/_authenticated'
@@ -245,6 +381,12 @@ export interface FileRouteTypes {
     | '/(errors)/503'
     | '/_authenticated/'
     | '/_authenticated/methods/bisection'
+    | '/_authenticated/methods/comparison'
+    | '/_authenticated/methods/false-position'
+    | '/_authenticated/methods/fixed-point'
+    | '/_authenticated/methods/multiple-roots'
+    | '/_authenticated/methods/newton-raphson'
+    | '/_authenticated/methods/secant'
   fileRoutesById: FileRoutesById
 }
 
@@ -295,7 +437,13 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/methods/route.tsx",
       "parent": "/_authenticated",
       "children": [
-        "/_authenticated/methods/bisection"
+        "/_authenticated/methods/bisection",
+        "/_authenticated/methods/comparison",
+        "/_authenticated/methods/false-position",
+        "/_authenticated/methods/fixed-point",
+        "/_authenticated/methods/multiple-roots",
+        "/_authenticated/methods/newton-raphson",
+        "/_authenticated/methods/secant"
       ]
     },
     "/(errors)/401": {
@@ -319,6 +467,30 @@ export const routeTree = rootRoute
     },
     "/_authenticated/methods/bisection": {
       "filePath": "_authenticated/methods/bisection.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/comparison": {
+      "filePath": "_authenticated/methods/comparison.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/false-position": {
+      "filePath": "_authenticated/methods/false-position.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/fixed-point": {
+      "filePath": "_authenticated/methods/fixed-point.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/multiple-roots": {
+      "filePath": "_authenticated/methods/multiple-roots.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/newton-raphson": {
+      "filePath": "_authenticated/methods/newton-raphson.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/secant": {
+      "filePath": "_authenticated/methods/secant.tsx",
       "parent": "/_authenticated/methods"
     }
   }

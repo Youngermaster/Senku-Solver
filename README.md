@@ -51,13 +51,13 @@ TODO
    - [x] Configurar el proyecto React para el frontend.
 
 2. **Desarrollo del Capítulo 1: Métodos de Raíces**
-   - [ ] Implementar el método de Bisección.
-   - [ ] Implementar el método de Punto Fijo.
-   - [ ] Implementar el método de Regla Falsa.
-   - [ ] Implementar el método de Newton-Raphson.
+   - [x] Implementar el método de Bisección.
+   - [x] Implementar el método de Punto Fijo.
+   - [x] Implementar el método de Regla Falsa.
+   - [x] Implementar el método de Newton-Raphson.
    - [ ] Implementar el método de Secante.
    - [ ] Implementar el método de Raíces Múltiples.
-   - [ ] Añadir funcionalidad de visualización de gráficos.
+   - [x] Añadir funcionalidad de visualización de gráficos.
 
 3. **Desarrollo del Capítulo 2: Métodos Iterativos**
    - [ ] Implementar el método de Jacobi.
