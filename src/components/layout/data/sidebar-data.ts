@@ -2,8 +2,9 @@ import {
   IconLayoutDashboard,
   IconVariable,
   IconChartLine,
+  IconMathFunction,
 } from '@tabler/icons-react'
-import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
+import { AudioWaveform, GalleryVerticalEnd } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
@@ -15,8 +16,8 @@ export const sidebarData: SidebarData = {
   teams: [
     {
       name: 'Senku Solver',
-      logo: Command,
-      plan: 'Numerical Analysis',
+      logo: IconMathFunction,
+      plan: 'Análisis Numérico',
     },
     {
       name: 'Acme Inc',
@@ -30,6 +31,16 @@ export const sidebarData: SidebarData = {
     },
   ],
   navGroups: [
+    {
+      title: 'Inicio',
+      items: [
+        {
+          title: 'Todos los Métodos',
+          url: '/',
+          icon: IconLayoutDashboard,
+        },
+      ],
+    },
     {
       title: 'Métodos de Raíces',
       items: [
@@ -67,17 +78,6 @@ export const sidebarData: SidebarData = {
           title: 'Comparación de Métodos',
           url: '/methods/comparison',
           icon: IconChartLine,
-        },
-      ],
-    },
-
-    {
-      title: 'General',
-      items: [
-        {
-          title: 'Dashboard',
-          url: '/',
-          icon: IconLayoutDashboard,
         },
       ],
     },
