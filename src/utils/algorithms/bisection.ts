@@ -28,7 +28,7 @@ export interface BisectionParams {
 function evaluateFunction(expression: string, x: number): number {
   try {
     // Replace x with the actual value and common math functions
-    let expr = expression
+    const expr = expression
       .replace(/x/g, x.toString())
       .replace(/sin/g, 'Math.sin')
       .replace(/cos/g, 'Math.cos')
@@ -198,5 +198,5 @@ export function bisectionMethod(params: BisectionParams): BisectionResult {
   }
 }
 
-// Default function for testing: x^2 - 5*x + 6*sin(x)
-export const defaultFunction = 'x^2 - 5*x + 6*Math.sin(x)'
+// Default function for testing: log(sin(x)^2 + 1) - (1/2)
+export const defaultFunction = 'log(sin(x)^2 + 1) - (1/2)'

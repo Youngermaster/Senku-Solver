@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import BisectionTable from './bisection-table'
+import BisectionTable from '@/features/methods/bisection/bisection-table'
 
 export default function BisectionMethod() {
   const [params, setParams] = useState<BisectionParams>({
@@ -104,7 +104,7 @@ export default function BisectionMethod() {
               <Label htmlFor='function'>Función f(x)</Label>
               <Textarea
                 id='function'
-                placeholder='Ejemplo: x^2 - 5*x + 6*Math.sin(x)'
+                placeholder='Ejemplo: log(sin(x)^2 + 1) - (1/2)'
                 value={params.functionExpression}
                 onChange={(e) =>
                   handleInputChange('functionExpression', e.target.value)
