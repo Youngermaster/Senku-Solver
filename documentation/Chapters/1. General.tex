@@ -1,12 +1,12 @@
-\chapter{Métodos Numéricos para Encontrar Raíces de Ecuaciones}
+\chapter{Senku Solver: Suite Completa de Métodos Numéricos}
 
 \section{Introducción}
 
-En el presente capítulo se desarrolla una aplicación web interactiva denominada \textbf{Senku Solver} que implementa seis métodos numéricos fundamentales para la búsqueda de raíces de ecuaciones no lineales. La aplicación está construida utilizando tecnologías web modernas como React, TypeScript y Vite, proporcionando una interfaz de usuario intuitiva y responsiva que permite a los usuarios explorar, comparar y analizar el comportamiento de diferentes algoritmos numéricos.
+En el presente documento se desarrolla una aplicación web interactiva denominada \textbf{Senku Solver} que implementa una suite completa de métodos numéricos fundamentales, abarcando tanto la búsqueda de raíces de ecuaciones no lineales como la resolución de sistemas de ecuaciones lineales mediante métodos iterativos. La aplicación está construida utilizando tecnologías web modernas como React, TypeScript y Vite, proporcionando una interfaz de usuario intuitiva y responsiva que permite a los usuarios explorar, comparar y analizar el comportamiento de diferentes algoritmos numéricos en ambas categorías.
 
-\section{Métodos Implementados}
+\section{Capítulo 1: Métodos para Encontrar Raíces}
 
-La aplicación incluye la implementación completa de los siguientes métodos numéricos:
+La aplicación incluye la implementación completa de seis métodos numéricos para la búsqueda de raíces de ecuaciones no lineales:
 
 \subsection{Métodos de Intervalo}
 
@@ -56,187 +56,425 @@ x_{n+1} = x_n - \frac{f(x_n) \cdot f'(x_n)}{[f'(x_n)]^2 - f(x_n) \cdot f''(x_n)}
 \]
 Este método restaura la convergencia cuadrática en presencia de raíces múltiples.
 
+\section{Capítulo 2: Métodos Iterativos para Sistemas Lineales}
+
+La aplicación implementa tres métodos iterativos fundamentales para resolver sistemas de ecuaciones lineales de la forma $Ax = b$, donde $A$ es una matriz cuadrada de hasta $7 \times 7$, $x$ es el vector solución y $b$ es el vector de términos independientes.
+
+\subsection{Fundamentos Teóricos}
+
+Todos los métodos iterativos implementados se basan en la descomposición de la matriz $A$ en la forma:
+\[
+A = D + L + U
+\]
+donde:
+\begin{itemize}
+    \item $D$ es la matriz diagonal
+    \item $L$ es la matriz triangular inferior estricta
+    \item $U$ es la matriz triangular superior estricta
+\end{itemize}
+
+La convergencia de estos métodos está determinada por el \textbf{radio espectral} $\rho$ de la matriz de iteración correspondiente. La condición necesaria y suficiente para convergencia es $\rho < 1$.
+
+\subsection{Método de Jacobi}
+
+\subsubsection{Formulación}
+El método de Jacobi utiliza todos los valores de la iteración anterior para calcular la nueva aproximación:
+\[
+x_i^{(k+1)} = \frac{1}{a_{ii}}\left(b_i - \sum_{j=1, j \neq i}^{n} a_{ij} x_j^{(k)}\right)
+\]
+
+La matriz de iteración es:
+\[
+T_J = D^{-1}(L + U)
+\]
+
+\subsubsection{Implementación}
+La implementación incluye:
+\begin{itemize}
+    \item Cálculo automático del radio espectral usando círculos de Gershgorin
+    \item Predicción teórica de convergencia ($\rho < 1$)
+    \item Validación de elementos diagonales no nulos
+    \item Seguimiento detallado de iteraciones con errores absolutos y relativos
+\end{itemize}
+
+\subsection{Método de Gauss-Seidel}
+
+\subsubsection{Formulación}
+Gauss-Seidel mejora Jacobi utilizando los valores más recientes disponibles en cada iteración:
+\[
+x_i^{(k+1)} = \frac{1}{a_{ii}}\left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}\right)
+\]
+
+La matriz de iteración es:
+\[
+T_{GS} = (D + L)^{-1}U
+\]
+
+\subsubsection{Ventajas Implementadas}
+\begin{itemize}
+    \item Convergencia generalmente más rápida que Jacobi
+    \item Menor uso de memoria (actualización in-place)
+    \item Análisis de dominancia diagonal automático
+    \item Predicción mejorada de comportamiento de convergencia
+\end{itemize}
+
+\subsection{Método SOR (Successive Over-Relaxation)}
+
+\subsubsection{Formulación}
+SOR introduce un factor de relajación $\omega$ para acelerar la convergencia:
+\[
+x_i^{(k+1)} = (1-\omega)x_i^{(k)} + \frac{\omega}{a_{ii}}\left(b_i - \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)}\right)
+\]
+
+La matriz de iteración es:
+\[
+T_{SOR} = (D - \omega L)^{-1}[(1-\omega)D + \omega U]
+\]
+
+\subsubsection{Optimización del Factor $\omega$}
+La implementación incluye:
+\begin{itemize}
+    \item \textbf{Estimación automática}: Cálculo de $\omega$ óptimo basado en propiedades de la matriz
+    \item \textbf{Validación de rango}: $0 < \omega < 2$ para garantizar convergencia
+    \item \textbf{Casos especiales}: $\omega = 1$ (Gauss-Seidel), $\omega < 1$ (sub-relajación), $\omega > 1$ (sobre-relajación)
+    \item \textbf{Análisis de rendimiento}: Potencial aceleración hasta $2\times$ respecto a Gauss-Seidel
+\end{itemize}
+
+\subsection{Análisis de Convergencia}
+
+\subsubsection{Radio Espectral}
+Para cada método, la aplicación calcula el radio espectral utilizando aproximaciones basadas en:
+\begin{itemize}
+    \item Círculos de Gershgorin para estimación inicial
+    \item Análisis de dominancia diagonal estricta
+    \item Predicción teórica de convergencia
+\end{itemize}
+
+\subsubsection{Condiciones de Convergencia}
+\begin{itemize}
+    \item \textbf{Dominancia diagonal estricta}: $|a_{ii}| > \sum_{j \neq i} |a_{ij}|$ garantiza convergencia
+    \item \textbf{Matrices definidas positivas}: Convergencia asegurada para Gauss-Seidel y SOR
+    \item \textbf{Validación automática}: Verificación de condiciones en tiempo real
+\end{itemize}
+
+\section{Sistema de Comparación Iterativa}
+
+\subsection{Metodología de Análisis Comparativo}
+
+La aplicación incluye un módulo especializado de comparación que ejecuta simultáneamente los tres métodos iterativos con los mismos parámetros y matriz objetivo.
+
+\subsubsection{Criterios de Evaluación}
+\begin{enumerate}
+    \item \textbf{Convergencia}: Prioridad máxima - verificación de $\rho < 1$ y convergencia efectiva
+    \item \textbf{Eficiencia Iterativa}: Número de iteraciones requeridas para alcanzar la tolerancia
+    \item \textbf{Tiempo de Ejecución}: Medición precisa usando \texttt{performance.now()}
+    \item \textbf{Radio Espectral}: Análisis teórico de la velocidad de convergencia
+    \item \textbf{Precisión Final}: Error relativo alcanzado en la solución
+\end{enumerate}
+
+\subsubsection{Proceso de Comparación Automática}
+\begin{enumerate}
+    \item \textbf{Configuración Uniforme}: Misma matriz, vector, tolerancia y límite de iteraciones
+    \item \textbf{Ejecución Paralela Conceptual}: Medición independiente de cada método
+    \item \textbf{Análisis Estadístico}: Cálculo de métricas comparativas
+    \item \textbf{Identificación del Método Óptimo}: Basado en criterios ponderados
+    \item \textbf{Generación de Informe}: Exportación completa en formato CSV
+\end{enumerate}
+
+\subsection{Métricas del Informe Comparativo}
+
+\subsubsection{Tabla Comparativa Principal}
+\begin{itemize}
+    \item Estado de convergencia con badges visuales
+    \item Radio espectral calculado para cada método
+    \item Predicción teórica de convergencia ($\rho < 1$)
+    \item Número de iteraciones y tiempo de ejecución
+    \item Error final y solución completa
+    \item Factor $\omega$ utilizado en SOR
+\end{itemize}
+
+\subsubsection{Estadísticas Agregadas}
+\begin{itemize}
+    \item Número de métodos convergentes
+    \item Promedio de iteraciones entre métodos exitosos
+    \item Mejor radio espectral obtenido
+    \item Tiempo total de análisis
+\end{itemize}
+
+\subsubsection{Informe Automático de Análisis}
+El sistema genera recomendaciones automáticas basadas en:
+\begin{itemize}
+    \item \textbf{Análisis de convergencia}: Verificación teórica vs. práctica
+    \item \textbf{Rendimiento comparativo}: Identificación del método más eficiente
+    \item \textbf{Recomendaciones específicas}: Sugerencias para optimización
+\end{itemize}
+
 \section{Arquitectura del Sistema}
 
 \subsection{Tecnologías Utilizadas}
 
-La aplicación utiliza un stack tecnológico moderno:
+La aplicación utiliza un stack tecnológico moderno y robusto:
 
 \begin{itemize}
-    \item \textbf{Frontend}: React con TypeScript para type safety y mejor experiencia de desarrollo
-    \item \textbf{Build Tool}: Vite para compilación rápida y hot reloading
+    \item \textbf{Frontend}: React 18 con TypeScript para type safety y mejor experiencia de desarrollo
+    \item \textbf{Build Tool}: Vite para compilación rápida y hot reloading optimizado
     \item \textbf{UI Framework}: shadcn/ui con Tailwind CSS para interfaces modernas y responsivas
-    \item \textbf{Routing}: TanStack Router para navegación tipo-segura
+    \item \textbf{Routing}: TanStack Router para navegación tipo-segura y lazy loading
     \item \textbf{Icons}: Tabler Icons y Lucide React para iconografía consistente
+    \item \textbf{Algoritmos}: Implementaciones puras en TypeScript sin dependencias externas
 \end{itemize}
 
-\subsection{Estructura de Componentes}
+\subsection{Estructura Modular}
 
-Cada método numérico sigue una arquitectura modular consistente:
+Cada método numérico (tanto de raíces como iterativo) sigue una arquitectura consistente:
 
 \begin{itemize}
-    \item \textbf{Algoritmo}: Implementación pura en TypeScript sin dependencias de UI
-    \item \textbf{Componente Principal}: Interfaz de usuario para configuración y resultados
-    \item \textbf{Tabla de Iteraciones}: Componente especializado para mostrar datos tabulares
+    \item \textbf{Algoritmo Core}: Implementación pura en \texttt{/src/utils/algorithms/}
+    \item \textbf{Componente Principal}: Interfaz de usuario en \texttt{/src/features/methods/}
+    \item \textbf{Tabla de Resultados}: Componente especializado para visualización tabular
+    \item \textbf{Entrada de Datos}: Componentes reutilizables para configuración
     \item \textbf{Ruta}: Configuración de navegación usando file-based routing
+\end{itemize}
+
+\subsection{Componentes Compartidos}
+
+\subsubsection{MatrixInput}
+Componente unificado para entrada de sistemas lineales que incluye:
+\begin{itemize}
+    \item Modo texto con sintaxis flexible (espacios o comas)
+    \item Validación en tiempo real de matrices hasta $7 \times 7$
+    \item Ejemplos precargados ($2 \times 2$, $3 \times 3$, $4 \times 4$)
+    \item Verificación de dominancia diagonal automática
+    \item Estimación de parámetros óptimos (factor $\omega$ para SOR)
+\end{itemize}
+
+\subsubsection{Utilidades de Matriz}
+Funciones especializadas en \texttt{/src/utils/matrix-utils.ts}:
+\begin{itemize}
+    \item Parsing y validación de entrada
+    \item Verificación de dominancia diagonal
+    \item Cálculo de radio espectral aproximado
+    \item Estimación de factor $\omega$ óptimo
+    \item Generación de ejemplos educativos
 \end{itemize}
 
 \section{Funcionalidades de la Interfaz}
 
-\subsection{Entrada de Datos}
+\subsection{Entrada de Datos Unificada}
 
-La aplicación proporciona una interfaz intuitiva para la entrada de datos:
-
+\subsubsection{Para Métodos de Raíces}
 \begin{itemize}
-    \item \textbf{Funciones Matemáticas}: Soporte completo para funciones algebraicas usando sintaxis JavaScript estándar
-    \item \textbf{Operadores Soportados}: funciones trigonométricas ($\sin$, $\cos$, $\tan$), exponencial ($\exp$), logaritmo ($\log$), raíz cuadrada, y operaciones aritméticas básicas
-    \item \textbf{Validación en Tiempo Real}: Evaluación inmediata de expresiones para detectar errores
-    \item \textbf{Ejemplos Contextuales}: Placeholders específicos para cada método con ejemplos relevantes
+    \item \textbf{Funciones Matemáticas}: Soporte completo para funciones algebraicas usando sintaxis JavaScript
+    \item \textbf{Operadores Soportados}: funciones trigonométricas, exponencial, logaritmo, raíz cuadrada
+    \item \textbf{Validación en Tiempo Real}: Evaluación inmediata para detectar errores
+    \item \textbf{Ejemplos Contextuales}: Placeholders específicos con función por defecto
 \end{itemize}
 
-\subsection{Visualización de Resultados}
-
-Cada método presenta sus resultados de manera clara y organizada:
-
+\subsubsection{Para Métodos Iterativos}
 \begin{itemize}
-    \item \textbf{Estado de Convergencia}: Badges visuales indicando éxito o falla
-    \item \textbf{Métricas Principales}: Raíz aproximada, error final, número de iteraciones
-    \item \textbf{Tablas Detalladas}: Historial completo de iteraciones con formateo numérico apropiado
-    \item \textbf{Mensajes Informativos}: Explicaciones contextuales del comportamiento del algoritmo
+    \item \textbf{Matriz y Vector}: Entrada flexible con validación automática
+    \item \textbf{Guess Inicial}: Vector de aproximación inicial configurable
+    \item \textbf{Parámetros de Convergencia}: Tolerancia y límite de iteraciones
+    \item \textbf{Configuración SOR}: Factor $\omega$ automático o personalizado
 \end{itemize}
 
-\section{Sistema de Comparación}
+\subsection{Visualización Avanzada de Resultados}
 
-\subsection{Metodología de Análisis}
+\subsubsection{Métricas Principales}
+\begin{itemize}
+    \item \textbf{Estado de Convergencia}: Badges visuales con códigos de color
+    \item \textbf{Radio Espectral}: Indicador visual de convergencia teórica
+    \item \textbf{Eficiencia}: Iteraciones y tiempo de ejecución
+    \item \textbf{Precisión}: Error final con notación científica
+\end{itemize}
 
-La aplicación incluye un módulo de comparación automática que ejecuta todos los métodos con los mismos parámetros y función objetivo. El análisis utiliza los siguientes criterios:
+\subsubsection{Tablas Interactivas}
+\begin{itemize}
+    \item \textbf{Historial Completo}: Todas las iteraciones con formateo numérico
+    \item \textbf{Exportación CSV}: Datos completos para análisis externo
+    \item \textbf{Truncamiento Inteligente}: Primeras 50 iteraciones para rendimiento
+    \item \textbf{Scroll Responsive}: Adaptación a diferentes tamaños de pantalla
+\end{itemize}
+
+\section{Sistemas de Comparación}
+
+\subsection{Comparación de Métodos de Raíces}
+
+Análisis automático que ejecuta todos los métodos de búsqueda de raíces con los mismos parámetros:
 
 \subsubsection{Criterios de Evaluación}
-
 \begin{enumerate}
-    \item \textbf{Convergencia}: Prioridad máxima - el método debe converger a una solución válida
-    \item \textbf{Eficiencia Iterativa}: Entre métodos convergentes, se prefiere menor número de iteraciones
-    \item \textbf{Tiempo de Ejecución}: Medición precisa usando \texttt{performance.now()} para comparar velocidad
-    \item \textbf{Precisión}: Evaluación del error final alcanzado
+    \item Convergencia exitosa a una raíz válida
+    \item Menor número de iteraciones entre métodos convergentes
+    \item Tiempo de ejecución optimizado
+    \item Precisión del resultado final
 \end{enumerate}
 
-\subsubsection{Proceso de Comparación}
+\subsection{Comparación de Métodos Iterativos}
 
-El sistema ejecuta automáticamente:
+Sistema especializado para análisis de sistemas lineales:
 
-\begin{enumerate}
-    \item Configuración uniforme de parámetros (tolerancia, máximo de iteraciones)
-    \item Ejecución secuencial con medición temporal
-    \item Análisis estadístico de resultados
-    \item Identificación del método óptimo basado en criterios ponderados
-    \item Generación de informe exportable en formato CSV
-\end{enumerate}
-
-\subsection{Métricas Reportadas}
-
-El informe de comparación incluye:
-
+\subsubsection{Análisis Teórico vs. Práctico}
 \begin{itemize}
-    \item \textbf{Tabla Comparativa}: Resultados lado a lado de todos los métodos
-    \item \textbf{Identificación del Mejor Método}: Destacado visual del algoritmo óptimo
-    \item \textbf{Estadísticas Agregadas}: Promedio de iteraciones, tiempo total, tasa de convergencia
-    \item \textbf{Exportación de Datos}: Capacidad de descargar resultados para análisis posterior
+    \item Predicción de convergencia basada en radio espectral
+    \item Verificación experimental de las predicciones teóricas
+    \item Análisis de discrepancias entre teoría y práctica
+\end{itemize}
+
+\subsubsection{Identificación del Método Óptimo}
+Algoritmo que considera:
+\begin{enumerate}
+    \item Convergencia exitosa (requisito obligatorio)
+    \item Menor número de iteraciones
+    \item Tiempo de ejecución más rápido
+    \item Radio espectral más favorable
+\end{enumerate}
+
+\section{Casos de Uso y Validación}
+
+\subsection{Ejemplos por Defecto}
+
+\subsubsection{Función de Prueba para Raíces}
+\[
+f(x) = \log(\sin^2(x) + 1) - \frac{1}{2}
+\]
+Esta función permite evaluación comparativa efectiva debido a su comportamiento no lineal complejo.
+
+\subsubsection{Sistema Lineal de Prueba}
+Matriz $3 \times 3$ diagonalmente dominante:
+\[
+A = \begin{pmatrix}
+4 & -1 & 0 \\
+-1 & 4 & -1 \\
+0 & -1 & 4
+\end{pmatrix}, \quad b = \begin{pmatrix}
+3 \\ 7 \\ 6
+\end{pmatrix}
+\]
+
+Esta matriz garantiza convergencia para todos los métodos iterativos y permite demostrar las diferencias de rendimiento.
+
+\subsection{Validación de Resultados}
+
+\subsubsection{Precisión Numérica}
+\begin{itemize}
+    \item Tolerancias configurables desde $10^{-1}$ hasta $10^{-15}$
+    \item Manejo de aritmética de punto flotante
+    \item Detección de estancamiento numérico
+\end{itemize}
+
+\subsubsection{Casos Límite}
+\begin{itemize}
+    \item Matrices mal condicionadas
+    \item Sistemas con convergencia lenta
+    \item Matrices sin dominancia diagonal
 \end{itemize}
 
 \section{Manejo de Casos Especiales}
 
-\subsection{Validación de Entrada}
+\subsection{Validación Robusta}
 
-El sistema implementa validaciones robustas:
-
+\subsubsection{Para Métodos de Raíces}
 \begin{itemize}
-    \item \textbf{Sintaxis de Funciones}: Verificación de expresiones matemáticas válidas
-    \item \textbf{Condiciones de Convergencia}: Validación específica por método (ej. cambio de signo para bisección)
-    \item \textbf{Parámetros Numéricos}: Verificación de rangos válidos para tolerancia e iteraciones
+    \item Sintaxis de funciones matemáticas
+    \item Condiciones de convergencia específicas por método
+    \item Parámetros numéricos en rangos válidos
 \end{itemize}
 
-\subsection{Manejo de Errores}
-
-Cada algoritmo incluye manejo específico de casos problemáticos:
-
+\subsubsection{Para Métodos Iterativos}
 \begin{itemize}
-    \item \textbf{División por Cero}: Detección y manejo de derivadas nulas
-    \item \textbf{No Convergencia}: Límites de iteración con mensajes informativos
-    \item \textbf{Errores de Evaluación}: Captura de excepciones en evaluación de funciones
+    \item Matrices cuadradas hasta $7 \times 7$
+    \item Elementos diagonales no nulos
+    \item Coherencia dimensional entre matriz y vectores
+    \item Factor $\omega$ en rango válido $(0, 2)$ para SOR
+\end{itemize}
+
+\subsection{Manejo de Errores Específicos}
+
+\subsubsection{Algoritmos de Raíces}
+\begin{itemize}
+    \item División por cero en derivadas
+    \item Ausencia de cambio de signo en métodos de intervalo
+    \item Convergencia a puntos de inflexión
+\end{itemize}
+
+\subsubsection{Métodos Iterativos}
+\begin{itemize}
+    \item Matrices singulares o mal condicionadas
+    \item Divergencia por radio espectral $\geq 1$
+    \item Stancamiento por tolerancia demasiado restrictiva
 \end{itemize}
 
 \section{Experiencia de Usuario}
 
-\subsection{Diseño de Interfaz}
-
-La aplicación utiliza principios de UX moderno:
+\subsection{Diseño de Interfaz Moderna}
 
 \begin{itemize}
-    \item \textbf{Diseño Responsivo}: Adaptación automática a diferentes tamaños de pantalla
-    \item \textbf{Tema Oscuro/Claro}: Soporte completo para preferencias de usuario
-    \item \textbf{Navegación Intuitiva}: Sidebar organizado por categorías de métodos
-    \item \textbf{Feedback Visual}: Indicadores de carga y estados de proceso
+    \item \textbf{Navegación Organizada}: Sidebar categorizado por tipo de método
+    \item \textbf{Diseño Responsivo}: Adaptación fluida a móviles, tablets y desktop
+    \item \textbf{Tema Dual}: Soporte completo para modo oscuro y claro
+    \item \textbf{Feedback Visual}: Estados de carga, progreso y resultados
+    \item \textbf{Accessibility}: Navegación por teclado y etiquetas semánticas
 \end{itemize}
 
-\subsection{Accesibilidad}
-
-Implementación de estándares de accesibilidad web:
+\subsection{Flujo de Trabajo Optimizado}
 
 \begin{itemize}
-    \item \textbf{Navegación por Teclado}: Soporte completo para usuarios sin mouse
-    \item \textbf{Contraste Adecuado}: Cumplimiento de estándares WCAG
-    \item \textbf{Etiquetas Semánticas}: HTML estructurado para lectores de pantalla
-\end{itemize}
-
-\section{Casos de Uso y Ejemplos}
-
-\subsection{Función de Prueba Principal}
-
-La aplicación utiliza por defecto la función:
-\[
-f(x) = \log(\sin^2(x) + 1) - \frac{1}{2}
-\]
-
-Esta función presenta características interesantes para el análisis:
-\begin{itemize}
-    \item Comportamiento no lineal complejo
-    \item Múltiples raíces en diferentes intervalos
-    \item Permite evaluación comparativa significativa
-\end{itemize}
-
-\subsection{Resultados Típicos}
-
-En pruebas con la función por defecto, los métodos muestran el siguiente comportamiento relativo:
-
-\begin{itemize}
-    \item \textbf{Newton-Raphson}: Convergencia más rápida cuando la derivada está disponible
-    \item \textbf{Secante}: Buen balance entre velocidad y simplicidad de implementación
-    \item \textbf{Bisección}: Mayor robustez pero convergencia más lenta
-    \item \textbf{Regla Falsa}: Mejora sobre bisección manteniendo garantías de convergencia
+    \item \textbf{Valores por Defecto}: Ejemplos precargados para prueba inmediata
+    \item \textbf{Validación Proactiva}: Verificación en tiempo real
+    \item \textbf{Exportación Integrada}: Descarga de resultados en un clic
+    \item \textbf{Comparación Opcional}: El usuario decide si ejecutar análisis comparativo
 \end{itemize}
 
 \section{Conclusiones y Trabajo Futuro}
 
 \subsection{Logros del Proyecto}
 
-El desarrollo de Senku Solver representa una implementación exitosa de:
+El desarrollo de Senku Solver representa una implementación exitosa y completa de:
 
 \begin{enumerate}
-    \item Sistema completo de métodos numéricos para búsqueda de raíces
-    \item Interfaz de usuario moderna e intuitiva
-    \item Herramientas de análisis y comparación automática
-    \item Arquitectura modular y extensible
+    \item \textbf{Suite Dual}: Métodos de raíces (6 algoritmos) y métodos iterativos (3 algoritmos)
+    \item \textbf{Interfaz Unificada}: UX consistente entre diferentes categorías de métodos
+    \item \textbf{Análisis Comparativo Dual}: Sistemas especializados para cada tipo de problema
+    \item \textbf{Arquitectura Escalable}: Base sólida para futuras extensiones
+    \item \textbf{Calidad Académica}: Implementaciones fieles a la teoría numérica
 \end{enumerate}
+
+\subsection{Innovaciones Técnicas}
+
+\begin{itemize}
+    \item \textbf{Radio Espectral Automático}: Cálculo y predicción de convergencia en tiempo real
+    \item \textbf{Optimización SOR}: Estimación automática del factor $\omega$ óptimo
+    \item \textbf{Validación Inteligente}: Verificación específica por método y contexto
+    \item \textbf{Comparación Automática}: Análisis y recomendaciones sin intervención manual
+\end{itemize}
 
 \subsection{Extensiones Planificadas}
 
-El proyecto está diseñado para futuras extensiones:
-
+\subsubsection{Mejoras Inmediatas}
 \begin{itemize}
-    \item \textbf{Visualización Gráfica}: Integración de gráficas de funciones y convergencia
-    \item \textbf{Métodos Adicionales}: Implementación de variantes y métodos especializados
-    \item \textbf{Optimización WASM}: Migración de algoritmos críticos a WebAssembly para mayor rendimiento
-    \item \textbf{API Backend}: Desarrollo de servicios para análisis más complejos
+    \item \textbf{Visualización Gráfica}: Gráficas de convergencia y comportamiento iterativo
+    \item \textbf{Métodos Adicionales}: Implementación de variantes especializadas
+    \item \textbf{Exportación Avanzada}: Formatos adicionales (PDF, LaTeX)
 \end{itemize}
 
-La implementación actual establece una base sólida para el desarrollo de una suite completa de herramientas de análisis numérico, cumpliendo con los objetivos académicos mientras proporciona una experiencia de usuario profesional y moderna.
+\subsubsection{Desarrollo a Largo Plazo}
+\begin{itemize}
+    \item \textbf{Optimización WASM}: Migración de algoritmos críticos a WebAssembly
+    \item \textbf{API Backend}: Servicios para análisis de matrices grandes
+    \item \textbf{Capítulo 3}: Interpolación y aproximación numérica
+    \item \textbf{Capítulo 4}: Diferenciación e integración numérica
+\end{itemize}
+
+\subsection{Impacto Educativo}
+
+Senku Solver establece un nuevo estándar para herramientas educativas de análisis numérico:
+
+\begin{itemize}
+    \item \textbf{Aprendizaje Interactivo}: Experimentación directa con algoritmos
+    \item \textbf{Análisis Comparativo}: Comprensión profunda de trade-offs algorítmicos
+    \item \textbf{Validación Práctica}: Verificación de conceptos teóricos
+    \item \textbf{Accesibilidad Universal}: Disponible en cualquier dispositivo con navegador web
+\end{itemize}
+
+La implementación actual establece una base sólida y extensible para el desarrollo continuo de una suite completa de herramientas de análisis numérico, cumpliendo con los más altos estándares académicos mientras proporciona una experiencia de usuario moderna y profesional.

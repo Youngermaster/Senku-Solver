@@ -108,7 +108,7 @@ export function gaussSeidel(params: GaussSeidelParams): GaussSeidelResult {
   const spectralRadius = calculateSpectralRadius(matrix)
   const canConverge = spectralRadius < 1
 
-  let x = [...initialGuess]
+  const x = [...initialGuess]
   let converged = false
   let iteration = 0
 

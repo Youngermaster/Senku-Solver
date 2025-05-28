@@ -60,10 +60,10 @@ TODO
    - [x] Añadir funcionalidad de visualización de gráficos.
 
 3. **Desarrollo del Capítulo 2: Métodos Iterativos**
-   - [ ] Implementar el método de Jacobi.
-   - [ ] Implementar el método de Gauss-Seidel.
-   - [ ] Implementar el método SOR.
-   - [ ] Añadir cálculo y análisis del radio espectral.
+   - [x] Implementar el método de Jacobi.
+   - [x] Implementar el método de Gauss-Seidel.
+   - [x] Implementar el método SOR.
+   - [x] Añadir cálculo y análisis del radio espectral.
 
 4. **Desarrollo del Capítulo 3: Interpolación y Aproximación**
    - [ ] Implementar el método de Vandermonde.

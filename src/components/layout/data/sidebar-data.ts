@@ -106,5 +106,40 @@ export const sidebarData: SidebarData = {
         },
       ],
     },
+    {
+      title: 'Métodos de Interpolación',
+      items: [
+        {
+          title: 'Método de Vandermonde',
+          url: '/methods/vandermonde',
+          icon: IconVariable,
+        },
+        {
+          title: 'Método de Newton Interpolante',
+          url: '/methods/newton-interpolant',
+          icon: IconVariable,
+        },
+        {
+          title: 'Método de Lagrange',
+          url: '/methods/lagrange',
+          icon: IconVariable,
+        },
+        {
+          title: 'Spline Lineal',
+          url: '/methods/spline-linear',
+          icon: IconVariable,
+        },
+        {
+          title: 'Spline Cúbica',
+          url: '/methods/spline-cubic',
+          icon: IconVariable,
+        },
+        {
+          title: 'Comparación de Interpolación',
+          url: '/methods/interpolation-comparison',
+          icon: IconChartLine,
+        },
+      ],
+    },
   ],
 }

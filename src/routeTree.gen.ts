@@ -19,12 +19,18 @@ import { Route as errors404Import } from './routes/(errors)/404'
 import { Route as errors403Import } from './routes/(errors)/403'
 import { Route as errors401Import } from './routes/(errors)/401'
 import { Route as AuthenticatedMethodsRouteImport } from './routes/_authenticated/methods/route'
+import { Route as AuthenticatedMethodsVandermondeImport } from './routes/_authenticated/methods/vandermonde'
+import { Route as AuthenticatedMethodsSplineLinearImport } from './routes/_authenticated/methods/spline-linear'
+import { Route as AuthenticatedMethodsSplineCubicImport } from './routes/_authenticated/methods/spline-cubic'
 import { Route as AuthenticatedMethodsSorImport } from './routes/_authenticated/methods/sor'
 import { Route as AuthenticatedMethodsSecantImport } from './routes/_authenticated/methods/secant'
 import { Route as AuthenticatedMethodsNewtonRaphsonImport } from './routes/_authenticated/methods/newton-raphson'
+import { Route as AuthenticatedMethodsNewtonInterpolantImport } from './routes/_authenticated/methods/newton-interpolant'
 import { Route as AuthenticatedMethodsMultipleRootsImport } from './routes/_authenticated/methods/multiple-roots'
+import { Route as AuthenticatedMethodsLagrangeImport } from './routes/_authenticated/methods/lagrange'
 import { Route as AuthenticatedMethodsJacobiImport } from './routes/_authenticated/methods/jacobi'
 import { Route as AuthenticatedMethodsIterativeComparisonImport } from './routes/_authenticated/methods/iterative-comparison'
+import { Route as AuthenticatedMethodsInterpolationComparisonImport } from './routes/_authenticated/methods/interpolation-comparison'
 import { Route as AuthenticatedMethodsGaussSeidelImport } from './routes/_authenticated/methods/gauss-seidel'
 import { Route as AuthenticatedMethodsFixedPointImport } from './routes/_authenticated/methods/fixed-point'
 import { Route as AuthenticatedMethodsFalsePositionImport } from './routes/_authenticated/methods/false-position'
@@ -80,6 +86,27 @@ const AuthenticatedMethodsRouteRoute = AuthenticatedMethodsRouteImport.update({
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
+const AuthenticatedMethodsVandermondeRoute =
+  AuthenticatedMethodsVandermondeImport.update({
+    id: '/vandermonde',
+    path: '/vandermonde',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsSplineLinearRoute =
+  AuthenticatedMethodsSplineLinearImport.update({
+    id: '/spline-linear',
+    path: '/spline-linear',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsSplineCubicRoute =
+  AuthenticatedMethodsSplineCubicImport.update({
+    id: '/spline-cubic',
+    path: '/spline-cubic',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
 const AuthenticatedMethodsSorRoute = AuthenticatedMethodsSorImport.update({
   id: '/sor',
   path: '/sor',
@@ -101,10 +128,24 @@ const AuthenticatedMethodsNewtonRaphsonRoute =
     getParentRoute: () => AuthenticatedMethodsRouteRoute,
   } as any)
 
+const AuthenticatedMethodsNewtonInterpolantRoute =
+  AuthenticatedMethodsNewtonInterpolantImport.update({
+    id: '/newton-interpolant',
+    path: '/newton-interpolant',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
 const AuthenticatedMethodsMultipleRootsRoute =
   AuthenticatedMethodsMultipleRootsImport.update({
     id: '/multiple-roots',
     path: '/multiple-roots',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsLagrangeRoute =
+  AuthenticatedMethodsLagrangeImport.update({
+    id: '/lagrange',
+    path: '/lagrange',
     getParentRoute: () => AuthenticatedMethodsRouteRoute,
   } as any)
 
@@ -120,6 +161,13 @@ const AuthenticatedMethodsIterativeComparisonRoute =
   AuthenticatedMethodsIterativeComparisonImport.update({
     id: '/iterative-comparison',
     path: '/iterative-comparison',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsInterpolationComparisonRoute =
+  AuthenticatedMethodsInterpolationComparisonImport.update({
+    id: '/interpolation-comparison',
+    path: '/interpolation-comparison',
     getParentRoute: () => AuthenticatedMethodsRouteRoute,
   } as any)
 
@@ -253,6 +301,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMethodsGaussSeidelImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
+    '/_authenticated/methods/interpolation-comparison': {
+      id: '/_authenticated/methods/interpolation-comparison'
+      path: '/interpolation-comparison'
+      fullPath: '/methods/interpolation-comparison'
+      preLoaderRoute: typeof AuthenticatedMethodsInterpolationComparisonImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
     '/_authenticated/methods/iterative-comparison': {
       id: '/_authenticated/methods/iterative-comparison'
       path: '/iterative-comparison'
@@ -267,11 +322,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMethodsJacobiImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
+    '/_authenticated/methods/lagrange': {
+      id: '/_authenticated/methods/lagrange'
+      path: '/lagrange'
+      fullPath: '/methods/lagrange'
+      preLoaderRoute: typeof AuthenticatedMethodsLagrangeImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
     '/_authenticated/methods/multiple-roots': {
       id: '/_authenticated/methods/multiple-roots'
       path: '/multiple-roots'
       fullPath: '/methods/multiple-roots'
       preLoaderRoute: typeof AuthenticatedMethodsMultipleRootsImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/newton-interpolant': {
+      id: '/_authenticated/methods/newton-interpolant'
+      path: '/newton-interpolant'
+      fullPath: '/methods/newton-interpolant'
+      preLoaderRoute: typeof AuthenticatedMethodsNewtonInterpolantImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
     '/_authenticated/methods/newton-raphson': {
@@ -295,6 +364,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMethodsSorImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
+    '/_authenticated/methods/spline-cubic': {
+      id: '/_authenticated/methods/spline-cubic'
+      path: '/spline-cubic'
+      fullPath: '/methods/spline-cubic'
+      preLoaderRoute: typeof AuthenticatedMethodsSplineCubicImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/spline-linear': {
+      id: '/_authenticated/methods/spline-linear'
+      path: '/spline-linear'
+      fullPath: '/methods/spline-linear'
+      preLoaderRoute: typeof AuthenticatedMethodsSplineLinearImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/vandermonde': {
+      id: '/_authenticated/methods/vandermonde'
+      path: '/vandermonde'
+      fullPath: '/methods/vandermonde'
+      preLoaderRoute: typeof AuthenticatedMethodsVandermondeImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
   }
 }
 
@@ -306,12 +396,18 @@ interface AuthenticatedMethodsRouteRouteChildren {
   AuthenticatedMethodsFalsePositionRoute: typeof AuthenticatedMethodsFalsePositionRoute
   AuthenticatedMethodsFixedPointRoute: typeof AuthenticatedMethodsFixedPointRoute
   AuthenticatedMethodsGaussSeidelRoute: typeof AuthenticatedMethodsGaussSeidelRoute
+  AuthenticatedMethodsInterpolationComparisonRoute: typeof AuthenticatedMethodsInterpolationComparisonRoute
   AuthenticatedMethodsIterativeComparisonRoute: typeof AuthenticatedMethodsIterativeComparisonRoute
   AuthenticatedMethodsJacobiRoute: typeof AuthenticatedMethodsJacobiRoute
+  AuthenticatedMethodsLagrangeRoute: typeof AuthenticatedMethodsLagrangeRoute
   AuthenticatedMethodsMultipleRootsRoute: typeof AuthenticatedMethodsMultipleRootsRoute
+  AuthenticatedMethodsNewtonInterpolantRoute: typeof AuthenticatedMethodsNewtonInterpolantRoute
   AuthenticatedMethodsNewtonRaphsonRoute: typeof AuthenticatedMethodsNewtonRaphsonRoute
   AuthenticatedMethodsSecantRoute: typeof AuthenticatedMethodsSecantRoute
   AuthenticatedMethodsSorRoute: typeof AuthenticatedMethodsSorRoute
+  AuthenticatedMethodsSplineCubicRoute: typeof AuthenticatedMethodsSplineCubicRoute
+  AuthenticatedMethodsSplineLinearRoute: typeof AuthenticatedMethodsSplineLinearRoute
+  AuthenticatedMethodsVandermondeRoute: typeof AuthenticatedMethodsVandermondeRoute
 }
 
 const AuthenticatedMethodsRouteRouteChildren: AuthenticatedMethodsRouteRouteChildren =
@@ -322,15 +418,24 @@ const AuthenticatedMethodsRouteRouteChildren: AuthenticatedMethodsRouteRouteChil
       AuthenticatedMethodsFalsePositionRoute,
     AuthenticatedMethodsFixedPointRoute: AuthenticatedMethodsFixedPointRoute,
     AuthenticatedMethodsGaussSeidelRoute: AuthenticatedMethodsGaussSeidelRoute,
+    AuthenticatedMethodsInterpolationComparisonRoute:
+      AuthenticatedMethodsInterpolationComparisonRoute,
     AuthenticatedMethodsIterativeComparisonRoute:
       AuthenticatedMethodsIterativeComparisonRoute,
     AuthenticatedMethodsJacobiRoute: AuthenticatedMethodsJacobiRoute,
+    AuthenticatedMethodsLagrangeRoute: AuthenticatedMethodsLagrangeRoute,
     AuthenticatedMethodsMultipleRootsRoute:
       AuthenticatedMethodsMultipleRootsRoute,
+    AuthenticatedMethodsNewtonInterpolantRoute:
+      AuthenticatedMethodsNewtonInterpolantRoute,
     AuthenticatedMethodsNewtonRaphsonRoute:
       AuthenticatedMethodsNewtonRaphsonRoute,
     AuthenticatedMethodsSecantRoute: AuthenticatedMethodsSecantRoute,
     AuthenticatedMethodsSorRoute: AuthenticatedMethodsSorRoute,
+    AuthenticatedMethodsSplineCubicRoute: AuthenticatedMethodsSplineCubicRoute,
+    AuthenticatedMethodsSplineLinearRoute:
+      AuthenticatedMethodsSplineLinearRoute,
+    AuthenticatedMethodsVandermondeRoute: AuthenticatedMethodsVandermondeRoute,
   }
 
 const AuthenticatedMethodsRouteRouteWithChildren =
@@ -365,12 +470,18 @@ export interface FileRoutesByFullPath {
   '/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
   '/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
   '/methods/gauss-seidel': typeof AuthenticatedMethodsGaussSeidelRoute
+  '/methods/interpolation-comparison': typeof AuthenticatedMethodsInterpolationComparisonRoute
   '/methods/iterative-comparison': typeof AuthenticatedMethodsIterativeComparisonRoute
   '/methods/jacobi': typeof AuthenticatedMethodsJacobiRoute
+  '/methods/lagrange': typeof AuthenticatedMethodsLagrangeRoute
   '/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
+  '/methods/newton-interpolant': typeof AuthenticatedMethodsNewtonInterpolantRoute
   '/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
   '/methods/secant': typeof AuthenticatedMethodsSecantRoute
   '/methods/sor': typeof AuthenticatedMethodsSorRoute
+  '/methods/spline-cubic': typeof AuthenticatedMethodsSplineCubicRoute
+  '/methods/spline-linear': typeof AuthenticatedMethodsSplineLinearRoute
+  '/methods/vandermonde': typeof AuthenticatedMethodsVandermondeRoute
 }
 
 export interface FileRoutesByTo {
@@ -386,12 +497,18 @@ export interface FileRoutesByTo {
   '/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
   '/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
   '/methods/gauss-seidel': typeof AuthenticatedMethodsGaussSeidelRoute
+  '/methods/interpolation-comparison': typeof AuthenticatedMethodsInterpolationComparisonRoute
   '/methods/iterative-comparison': typeof AuthenticatedMethodsIterativeComparisonRoute
   '/methods/jacobi': typeof AuthenticatedMethodsJacobiRoute
+  '/methods/lagrange': typeof AuthenticatedMethodsLagrangeRoute
   '/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
+  '/methods/newton-interpolant': typeof AuthenticatedMethodsNewtonInterpolantRoute
   '/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
   '/methods/secant': typeof AuthenticatedMethodsSecantRoute
   '/methods/sor': typeof AuthenticatedMethodsSorRoute
+  '/methods/spline-cubic': typeof AuthenticatedMethodsSplineCubicRoute
+  '/methods/spline-linear': typeof AuthenticatedMethodsSplineLinearRoute
+  '/methods/vandermonde': typeof AuthenticatedMethodsVandermondeRoute
 }
 
 export interface FileRoutesById {
@@ -409,12 +526,18 @@ export interface FileRoutesById {
   '/_authenticated/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
   '/_authenticated/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
   '/_authenticated/methods/gauss-seidel': typeof AuthenticatedMethodsGaussSeidelRoute
+  '/_authenticated/methods/interpolation-comparison': typeof AuthenticatedMethodsInterpolationComparisonRoute
   '/_authenticated/methods/iterative-comparison': typeof AuthenticatedMethodsIterativeComparisonRoute
   '/_authenticated/methods/jacobi': typeof AuthenticatedMethodsJacobiRoute
+  '/_authenticated/methods/lagrange': typeof AuthenticatedMethodsLagrangeRoute
   '/_authenticated/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
+  '/_authenticated/methods/newton-interpolant': typeof AuthenticatedMethodsNewtonInterpolantRoute
   '/_authenticated/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
   '/_authenticated/methods/secant': typeof AuthenticatedMethodsSecantRoute
   '/_authenticated/methods/sor': typeof AuthenticatedMethodsSorRoute
+  '/_authenticated/methods/spline-cubic': typeof AuthenticatedMethodsSplineCubicRoute
+  '/_authenticated/methods/spline-linear': typeof AuthenticatedMethodsSplineLinearRoute
+  '/_authenticated/methods/vandermonde': typeof AuthenticatedMethodsVandermondeRoute
 }
 
 export interface FileRouteTypes {
@@ -433,12 +556,18 @@ export interface FileRouteTypes {
     | '/methods/false-position'
     | '/methods/fixed-point'
     | '/methods/gauss-seidel'
+    | '/methods/interpolation-comparison'
     | '/methods/iterative-comparison'
     | '/methods/jacobi'
+    | '/methods/lagrange'
     | '/methods/multiple-roots'
+    | '/methods/newton-interpolant'
     | '/methods/newton-raphson'
     | '/methods/secant'
     | '/methods/sor'
+    | '/methods/spline-cubic'
+    | '/methods/spline-linear'
+    | '/methods/vandermonde'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/methods'
@@ -453,12 +582,18 @@ export interface FileRouteTypes {
     | '/methods/false-position'
     | '/methods/fixed-point'
     | '/methods/gauss-seidel'
+    | '/methods/interpolation-comparison'
     | '/methods/iterative-comparison'
     | '/methods/jacobi'
+    | '/methods/lagrange'
     | '/methods/multiple-roots'
+    | '/methods/newton-interpolant'
     | '/methods/newton-raphson'
     | '/methods/secant'
     | '/methods/sor'
+    | '/methods/spline-cubic'
+    | '/methods/spline-linear'
+    | '/methods/vandermonde'
   id:
     | '__root__'
     | '/_authenticated'
@@ -474,12 +609,18 @@ export interface FileRouteTypes {
     | '/_authenticated/methods/false-position'
     | '/_authenticated/methods/fixed-point'
     | '/_authenticated/methods/gauss-seidel'
+    | '/_authenticated/methods/interpolation-comparison'
     | '/_authenticated/methods/iterative-comparison'
     | '/_authenticated/methods/jacobi'
+    | '/_authenticated/methods/lagrange'
     | '/_authenticated/methods/multiple-roots'
+    | '/_authenticated/methods/newton-interpolant'
     | '/_authenticated/methods/newton-raphson'
     | '/_authenticated/methods/secant'
     | '/_authenticated/methods/sor'
+    | '/_authenticated/methods/spline-cubic'
+    | '/_authenticated/methods/spline-linear'
+    | '/_authenticated/methods/vandermonde'
   fileRoutesById: FileRoutesById
 }
 
@@ -535,12 +676,18 @@ export const routeTree = rootRoute
         "/_authenticated/methods/false-position",
         "/_authenticated/methods/fixed-point",
         "/_authenticated/methods/gauss-seidel",
+        "/_authenticated/methods/interpolation-comparison",
         "/_authenticated/methods/iterative-comparison",
         "/_authenticated/methods/jacobi",
+        "/_authenticated/methods/lagrange",
         "/_authenticated/methods/multiple-roots",
+        "/_authenticated/methods/newton-interpolant",
         "/_authenticated/methods/newton-raphson",
         "/_authenticated/methods/secant",
-        "/_authenticated/methods/sor"
+        "/_authenticated/methods/sor",
+        "/_authenticated/methods/spline-cubic",
+        "/_authenticated/methods/spline-linear",
+        "/_authenticated/methods/vandermonde"
       ]
     },
     "/(errors)/401": {
@@ -582,6 +729,10 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/methods/gauss-seidel.tsx",
       "parent": "/_authenticated/methods"
     },
+    "/_authenticated/methods/interpolation-comparison": {
+      "filePath": "_authenticated/methods/interpolation-comparison.tsx",
+      "parent": "/_authenticated/methods"
+    },
     "/_authenticated/methods/iterative-comparison": {
       "filePath": "_authenticated/methods/iterative-comparison.tsx",
       "parent": "/_authenticated/methods"
@@ -590,8 +741,16 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/methods/jacobi.tsx",
       "parent": "/_authenticated/methods"
     },
+    "/_authenticated/methods/lagrange": {
+      "filePath": "_authenticated/methods/lagrange.tsx",
+      "parent": "/_authenticated/methods"
+    },
     "/_authenticated/methods/multiple-roots": {
       "filePath": "_authenticated/methods/multiple-roots.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/newton-interpolant": {
+      "filePath": "_authenticated/methods/newton-interpolant.tsx",
       "parent": "/_authenticated/methods"
     },
     "/_authenticated/methods/newton-raphson": {
@@ -604,6 +763,18 @@ export const routeTree = rootRoute
     },
     "/_authenticated/methods/sor": {
       "filePath": "_authenticated/methods/sor.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/spline-cubic": {
+      "filePath": "_authenticated/methods/spline-cubic.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/spline-linear": {
+      "filePath": "_authenticated/methods/spline-linear.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/vandermonde": {
+      "filePath": "_authenticated/methods/vandermonde.tsx",
       "parent": "/_authenticated/methods"
     }
   }

@@ -37,6 +37,22 @@ const methodDescriptions: Record<string, string> = {
 
   'Comparación Iterativa':
     'Ejecuta y compara Jacobi, Gauss-Seidel y SOR con la misma matriz. Analiza radio espectral, convergencia y rendimiento para identificar el mejor método.',
+
+  // Interpolation methods
+  'Método de Vandermonde':
+    'Construye el polinomio interpolante resolviendo el sistema de Vandermonde. Método directo que garantiza interpolación exacta para puntos distintos.',
+
+  'Método de Newton Interpolante':
+    'Utiliza diferencias divididas para construir el polinomio interpolante en forma de Newton. Eficiente para agregar nuevos puntos.',
+
+  'Método de Lagrange':
+    'Construye el polinomio usando funciones base de Lagrange. Forma elegante que expresa directamente la contribución de cada punto.',
+
+  'Spline Lineal':
+    'Interpolación por tramos usando segmentos lineales. Simple y eficaz para datos con comportamiento suave entre puntos.',
+
+  'Spline Cúbica':
+    'Interpolación suave usando polinomios cúbicos por tramos. Garantiza continuidad de la función y sus primeras dos derivadas.',
 }
 
 const categoryDescriptions: Record<string, string> = {
@@ -44,16 +60,19 @@ const categoryDescriptions: Record<string, string> = {
     'Algoritmos numéricos para encontrar raíces de ecuaciones no lineales',
   'Métodos Iterativos':
     'Técnicas iterativas para resolver sistemas de ecuaciones lineales Ax = b',
+  'Métodos de Interpolación':
+    'Construcción de funciones que pasan exactamente por puntos dados',
   Análisis:
     'Herramientas para comparar y evaluar el rendimiento de los métodos',
 }
 
 export default function MethodsGrid() {
-  // Filter only the methods groups (skip "Inicio")
+  // Filter the methods groups (skip "Inicio")
   const methodGroups = sidebarData.navGroups.filter(
     (group) =>
       group.title === 'Métodos de Raíces' ||
-      group.title === 'Métodos Iterativos'
+      group.title === 'Métodos Iterativos' ||
+      group.title === 'Métodos de Interpolación'
   )
 
   return (
@@ -66,8 +85,8 @@ export default function MethodsGrid() {
         </div>
         <p className='text-muted-foreground mx-auto max-w-2xl text-lg'>
           Suite completa de métodos numéricos para análisis matemático. Explora
-          diferentes algoritmos para encontrar raíces de ecuaciones no lineales
-          y resolver sistemas de ecuaciones lineales.
+          diferentes algoritmos para encontrar raíces de ecuaciones no lineales,
+          resolver sistemas de ecuaciones lineales e interpolación de datos.
         </p>
       </div>
 
@@ -88,19 +107,23 @@ export default function MethodsGrid() {
           </div>
 
           <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-            {group.items.map((item) => (
-              <MethodCard
-                key={item.url}
-                title={item.title}
-                description={
-                  methodDescriptions[item.title] ||
-                  'Método de análisis numérico avanzado.'
-                }
-                url={item.url}
-                icon={item.icon}
-                category={group.title}
-              />
-            ))}
+            {group.items
+              .filter((item) => item.url && item.icon) // Filter out items without required properties
+              .map((item) => (
+                <MethodCard
+                  key={item.url}
+                  title={item.title}
+                  description={
+                    methodDescriptions[item.title] ||
+                    'Método de análisis numérico avanzado.'
+                  }
+                  url={item.url!} // Safe to use ! because we filtered above
+                  icon={
+                    item.icon! as React.ComponentType<{ className?: string }>
+                  } // Type cast to match MethodCard expectation
+                  category={group.title}
+                />
+              ))}
           </div>
         </div>
       ))}
@@ -116,7 +139,7 @@ export default function MethodsGrid() {
         <div className='text-muted-foreground flex flex-wrap justify-center gap-4 text-xs'>
           <span>✓ Interfaz intuitiva</span>
           <span>✓ Tablas de iteraciones</span>
-          <span>✓ Radio espectral</span>
+          <span>✓ Gráficas interactivas</span>
           <span>✓ Análisis de convergencia</span>
           <span>✓ Exportación de resultados</span>
         </div>
