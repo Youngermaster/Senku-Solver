@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "build:wasm": "cd numanalytic-solver-lib && wasm-pack build --target web --out-dir pkg",
     "lint": "eslint .",
     "preview": "vite preview",
