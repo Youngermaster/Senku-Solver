@@ -81,5 +81,30 @@ export const sidebarData: SidebarData = {
         },
       ],
     },
+    {
+      title: 'Métodos Iterativos',
+      items: [
+        {
+          title: 'Método de Jacobi',
+          url: '/methods/jacobi',
+          icon: IconVariable,
+        },
+        {
+          title: 'Método de Gauss-Seidel',
+          url: '/methods/gauss-seidel',
+          icon: IconVariable,
+        },
+        {
+          title: 'Método de SOR',
+          url: '/methods/sor',
+          icon: IconVariable,
+        },
+        {
+          title: 'Comparación Iterativa',
+          url: '/methods/iterative-comparison',
+          icon: IconChartLine,
+        },
+      ],
+    },
   ],
 }

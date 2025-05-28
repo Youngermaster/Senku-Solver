@@ -19,9 +19,13 @@ import { Route as errors404Import } from './routes/(errors)/404'
 import { Route as errors403Import } from './routes/(errors)/403'
 import { Route as errors401Import } from './routes/(errors)/401'
 import { Route as AuthenticatedMethodsRouteImport } from './routes/_authenticated/methods/route'
+import { Route as AuthenticatedMethodsSorImport } from './routes/_authenticated/methods/sor'
 import { Route as AuthenticatedMethodsSecantImport } from './routes/_authenticated/methods/secant'
 import { Route as AuthenticatedMethodsNewtonRaphsonImport } from './routes/_authenticated/methods/newton-raphson'
 import { Route as AuthenticatedMethodsMultipleRootsImport } from './routes/_authenticated/methods/multiple-roots'
+import { Route as AuthenticatedMethodsJacobiImport } from './routes/_authenticated/methods/jacobi'
+import { Route as AuthenticatedMethodsIterativeComparisonImport } from './routes/_authenticated/methods/iterative-comparison'
+import { Route as AuthenticatedMethodsGaussSeidelImport } from './routes/_authenticated/methods/gauss-seidel'
 import { Route as AuthenticatedMethodsFixedPointImport } from './routes/_authenticated/methods/fixed-point'
 import { Route as AuthenticatedMethodsFalsePositionImport } from './routes/_authenticated/methods/false-position'
 import { Route as AuthenticatedMethodsComparisonImport } from './routes/_authenticated/methods/comparison'
@@ -76,6 +80,12 @@ const AuthenticatedMethodsRouteRoute = AuthenticatedMethodsRouteImport.update({
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
+const AuthenticatedMethodsSorRoute = AuthenticatedMethodsSorImport.update({
+  id: '/sor',
+  path: '/sor',
+  getParentRoute: () => AuthenticatedMethodsRouteRoute,
+} as any)
+
 const AuthenticatedMethodsSecantRoute = AuthenticatedMethodsSecantImport.update(
   {
     id: '/secant',
@@ -95,6 +105,28 @@ const AuthenticatedMethodsMultipleRootsRoute =
   AuthenticatedMethodsMultipleRootsImport.update({
     id: '/multiple-roots',
     path: '/multiple-roots',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsJacobiRoute = AuthenticatedMethodsJacobiImport.update(
+  {
+    id: '/jacobi',
+    path: '/jacobi',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any,
+)
+
+const AuthenticatedMethodsIterativeComparisonRoute =
+  AuthenticatedMethodsIterativeComparisonImport.update({
+    id: '/iterative-comparison',
+    path: '/iterative-comparison',
+    getParentRoute: () => AuthenticatedMethodsRouteRoute,
+  } as any)
+
+const AuthenticatedMethodsGaussSeidelRoute =
+  AuthenticatedMethodsGaussSeidelImport.update({
+    id: '/gauss-seidel',
+    path: '/gauss-seidel',
     getParentRoute: () => AuthenticatedMethodsRouteRoute,
   } as any)
 
@@ -214,6 +246,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMethodsFixedPointImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
+    '/_authenticated/methods/gauss-seidel': {
+      id: '/_authenticated/methods/gauss-seidel'
+      path: '/gauss-seidel'
+      fullPath: '/methods/gauss-seidel'
+      preLoaderRoute: typeof AuthenticatedMethodsGaussSeidelImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/iterative-comparison': {
+      id: '/_authenticated/methods/iterative-comparison'
+      path: '/iterative-comparison'
+      fullPath: '/methods/iterative-comparison'
+      preLoaderRoute: typeof AuthenticatedMethodsIterativeComparisonImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
+    '/_authenticated/methods/jacobi': {
+      id: '/_authenticated/methods/jacobi'
+      path: '/jacobi'
+      fullPath: '/methods/jacobi'
+      preLoaderRoute: typeof AuthenticatedMethodsJacobiImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
     '/_authenticated/methods/multiple-roots': {
       id: '/_authenticated/methods/multiple-roots'
       path: '/multiple-roots'
@@ -235,6 +288,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMethodsSecantImport
       parentRoute: typeof AuthenticatedMethodsRouteImport
     }
+    '/_authenticated/methods/sor': {
+      id: '/_authenticated/methods/sor'
+      path: '/sor'
+      fullPath: '/methods/sor'
+      preLoaderRoute: typeof AuthenticatedMethodsSorImport
+      parentRoute: typeof AuthenticatedMethodsRouteImport
+    }
   }
 }
 
@@ -245,9 +305,13 @@ interface AuthenticatedMethodsRouteRouteChildren {
   AuthenticatedMethodsComparisonRoute: typeof AuthenticatedMethodsComparisonRoute
   AuthenticatedMethodsFalsePositionRoute: typeof AuthenticatedMethodsFalsePositionRoute
   AuthenticatedMethodsFixedPointRoute: typeof AuthenticatedMethodsFixedPointRoute
+  AuthenticatedMethodsGaussSeidelRoute: typeof AuthenticatedMethodsGaussSeidelRoute
+  AuthenticatedMethodsIterativeComparisonRoute: typeof AuthenticatedMethodsIterativeComparisonRoute
+  AuthenticatedMethodsJacobiRoute: typeof AuthenticatedMethodsJacobiRoute
   AuthenticatedMethodsMultipleRootsRoute: typeof AuthenticatedMethodsMultipleRootsRoute
   AuthenticatedMethodsNewtonRaphsonRoute: typeof AuthenticatedMethodsNewtonRaphsonRoute
   AuthenticatedMethodsSecantRoute: typeof AuthenticatedMethodsSecantRoute
+  AuthenticatedMethodsSorRoute: typeof AuthenticatedMethodsSorRoute
 }
 
 const AuthenticatedMethodsRouteRouteChildren: AuthenticatedMethodsRouteRouteChildren =
@@ -257,11 +321,16 @@ const AuthenticatedMethodsRouteRouteChildren: AuthenticatedMethodsRouteRouteChil
     AuthenticatedMethodsFalsePositionRoute:
       AuthenticatedMethodsFalsePositionRoute,
     AuthenticatedMethodsFixedPointRoute: AuthenticatedMethodsFixedPointRoute,
+    AuthenticatedMethodsGaussSeidelRoute: AuthenticatedMethodsGaussSeidelRoute,
+    AuthenticatedMethodsIterativeComparisonRoute:
+      AuthenticatedMethodsIterativeComparisonRoute,
+    AuthenticatedMethodsJacobiRoute: AuthenticatedMethodsJacobiRoute,
     AuthenticatedMethodsMultipleRootsRoute:
       AuthenticatedMethodsMultipleRootsRoute,
     AuthenticatedMethodsNewtonRaphsonRoute:
       AuthenticatedMethodsNewtonRaphsonRoute,
     AuthenticatedMethodsSecantRoute: AuthenticatedMethodsSecantRoute,
+    AuthenticatedMethodsSorRoute: AuthenticatedMethodsSorRoute,
   }
 
 const AuthenticatedMethodsRouteRouteWithChildren =
@@ -295,9 +364,13 @@ export interface FileRoutesByFullPath {
   '/methods/comparison': typeof AuthenticatedMethodsComparisonRoute
   '/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
   '/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
+  '/methods/gauss-seidel': typeof AuthenticatedMethodsGaussSeidelRoute
+  '/methods/iterative-comparison': typeof AuthenticatedMethodsIterativeComparisonRoute
+  '/methods/jacobi': typeof AuthenticatedMethodsJacobiRoute
   '/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
   '/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
   '/methods/secant': typeof AuthenticatedMethodsSecantRoute
+  '/methods/sor': typeof AuthenticatedMethodsSorRoute
 }
 
 export interface FileRoutesByTo {
@@ -312,9 +385,13 @@ export interface FileRoutesByTo {
   '/methods/comparison': typeof AuthenticatedMethodsComparisonRoute
   '/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
   '/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
+  '/methods/gauss-seidel': typeof AuthenticatedMethodsGaussSeidelRoute
+  '/methods/iterative-comparison': typeof AuthenticatedMethodsIterativeComparisonRoute
+  '/methods/jacobi': typeof AuthenticatedMethodsJacobiRoute
   '/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
   '/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
   '/methods/secant': typeof AuthenticatedMethodsSecantRoute
+  '/methods/sor': typeof AuthenticatedMethodsSorRoute
 }
 
 export interface FileRoutesById {
@@ -331,9 +408,13 @@ export interface FileRoutesById {
   '/_authenticated/methods/comparison': typeof AuthenticatedMethodsComparisonRoute
   '/_authenticated/methods/false-position': typeof AuthenticatedMethodsFalsePositionRoute
   '/_authenticated/methods/fixed-point': typeof AuthenticatedMethodsFixedPointRoute
+  '/_authenticated/methods/gauss-seidel': typeof AuthenticatedMethodsGaussSeidelRoute
+  '/_authenticated/methods/iterative-comparison': typeof AuthenticatedMethodsIterativeComparisonRoute
+  '/_authenticated/methods/jacobi': typeof AuthenticatedMethodsJacobiRoute
   '/_authenticated/methods/multiple-roots': typeof AuthenticatedMethodsMultipleRootsRoute
   '/_authenticated/methods/newton-raphson': typeof AuthenticatedMethodsNewtonRaphsonRoute
   '/_authenticated/methods/secant': typeof AuthenticatedMethodsSecantRoute
+  '/_authenticated/methods/sor': typeof AuthenticatedMethodsSorRoute
 }
 
 export interface FileRouteTypes {
@@ -351,9 +432,13 @@ export interface FileRouteTypes {
     | '/methods/comparison'
     | '/methods/false-position'
     | '/methods/fixed-point'
+    | '/methods/gauss-seidel'
+    | '/methods/iterative-comparison'
+    | '/methods/jacobi'
     | '/methods/multiple-roots'
     | '/methods/newton-raphson'
     | '/methods/secant'
+    | '/methods/sor'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/methods'
@@ -367,9 +452,13 @@ export interface FileRouteTypes {
     | '/methods/comparison'
     | '/methods/false-position'
     | '/methods/fixed-point'
+    | '/methods/gauss-seidel'
+    | '/methods/iterative-comparison'
+    | '/methods/jacobi'
     | '/methods/multiple-roots'
     | '/methods/newton-raphson'
     | '/methods/secant'
+    | '/methods/sor'
   id:
     | '__root__'
     | '/_authenticated'
@@ -384,9 +473,13 @@ export interface FileRouteTypes {
     | '/_authenticated/methods/comparison'
     | '/_authenticated/methods/false-position'
     | '/_authenticated/methods/fixed-point'
+    | '/_authenticated/methods/gauss-seidel'
+    | '/_authenticated/methods/iterative-comparison'
+    | '/_authenticated/methods/jacobi'
     | '/_authenticated/methods/multiple-roots'
     | '/_authenticated/methods/newton-raphson'
     | '/_authenticated/methods/secant'
+    | '/_authenticated/methods/sor'
   fileRoutesById: FileRoutesById
 }
 
@@ -441,9 +534,13 @@ export const routeTree = rootRoute
         "/_authenticated/methods/comparison",
         "/_authenticated/methods/false-position",
         "/_authenticated/methods/fixed-point",
+        "/_authenticated/methods/gauss-seidel",
+        "/_authenticated/methods/iterative-comparison",
+        "/_authenticated/methods/jacobi",
         "/_authenticated/methods/multiple-roots",
         "/_authenticated/methods/newton-raphson",
-        "/_authenticated/methods/secant"
+        "/_authenticated/methods/secant",
+        "/_authenticated/methods/sor"
       ]
     },
     "/(errors)/401": {
@@ -481,6 +578,18 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/methods/fixed-point.tsx",
       "parent": "/_authenticated/methods"
     },
+    "/_authenticated/methods/gauss-seidel": {
+      "filePath": "_authenticated/methods/gauss-seidel.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/iterative-comparison": {
+      "filePath": "_authenticated/methods/iterative-comparison.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/jacobi": {
+      "filePath": "_authenticated/methods/jacobi.tsx",
+      "parent": "/_authenticated/methods"
+    },
     "/_authenticated/methods/multiple-roots": {
       "filePath": "_authenticated/methods/multiple-roots.tsx",
       "parent": "/_authenticated/methods"
@@ -491,6 +600,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/methods/secant": {
       "filePath": "_authenticated/methods/secant.tsx",
+      "parent": "/_authenticated/methods"
+    },
+    "/_authenticated/methods/sor": {
+      "filePath": "_authenticated/methods/sor.tsx",
       "parent": "/_authenticated/methods"
     }
   }

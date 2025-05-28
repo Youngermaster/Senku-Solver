@@ -24,19 +24,36 @@ const methodDescriptions: Record<string, string> = {
 
   'Comparación de Métodos':
     'Herramienta de análisis que ejecuta todos los métodos con la misma función y compara su rendimiento, eficiencia y precisión.',
+
+  // Iterative methods
+  'Método de Jacobi':
+    'Método iterativo básico para sistemas lineales Ax = b. Utiliza todos los valores de la iteración anterior. Garantiza convergencia para matrices diagonalmente dominantes.',
+
+  'Método de Gauss-Seidel':
+    'Mejora de Jacobi que usa los valores más recientes en cada iteración. Generalmente converge más rápido que Jacobi para el mismo sistema.',
+
+  'Método de SOR':
+    'Successive Over-Relaxation acelera la convergencia de Gauss-Seidel usando un factor de relajación ω. Puede ser hasta 2x más rápido con ω óptimo.',
+
+  'Comparación Iterativa':
+    'Ejecuta y compara Jacobi, Gauss-Seidel y SOR con la misma matriz. Analiza radio espectral, convergencia y rendimiento para identificar el mejor método.',
 }
 
 const categoryDescriptions: Record<string, string> = {
   'Métodos de Raíces':
     'Algoritmos numéricos para encontrar raíces de ecuaciones no lineales',
+  'Métodos Iterativos':
+    'Técnicas iterativas para resolver sistemas de ecuaciones lineales Ax = b',
   Análisis:
     'Herramientas para comparar y evaluar el rendimiento de los métodos',
 }
 
 export default function MethodsGrid() {
-  // Filter only the methods groups (skip "Inicio" and "General")
+  // Filter only the methods groups (skip "Inicio")
   const methodGroups = sidebarData.navGroups.filter(
-    (group) => group.title === 'Métodos de Raíces'
+    (group) =>
+      group.title === 'Métodos de Raíces' ||
+      group.title === 'Métodos Iterativos'
   )
 
   return (
@@ -49,7 +66,8 @@ export default function MethodsGrid() {
         </div>
         <p className='text-muted-foreground mx-auto max-w-2xl text-lg'>
           Suite completa de métodos numéricos para análisis matemático. Explora
-          diferentes algoritmos para encontrar raíces de ecuaciones no lineales.
+          diferentes algoritmos para encontrar raíces de ecuaciones no lineales
+          y resolver sistemas de ecuaciones lineales.
         </p>
       </div>
 
@@ -98,7 +116,8 @@ export default function MethodsGrid() {
         <div className='text-muted-foreground flex flex-wrap justify-center gap-4 text-xs'>
           <span>✓ Interfaz intuitiva</span>
           <span>✓ Tablas de iteraciones</span>
-          <span>✓ Análisis comparativo</span>
+          <span>✓ Radio espectral</span>
+          <span>✓ Análisis de convergencia</span>
           <span>✓ Exportación de resultados</span>
         </div>
       </div>
